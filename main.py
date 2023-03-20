@@ -24,7 +24,7 @@ def main():
 
     # Get participant details
     age = input("")
-    participant_details = get_participant_details()
+    # participant_details = get_participant_details()
 
     # Start practice trials
 
