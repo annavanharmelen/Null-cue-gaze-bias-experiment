@@ -8,6 +8,10 @@ see README.md for instructions if needed
 # Import necessary stuff
 from datetime import datetime
 
+from participantinfo import *
+from set_up import *
+from eyetracker import *
+
 
 def main():
     """
@@ -18,32 +22,31 @@ def main():
     """
 
     # Initialise set-up
-    #   Check screen, keyboard, mouse etc. met een functie!!
-
-    # Connect to eyetracker
+    window, kboard, mouse = set_up()
 
     # Get participant details
-    age = input("")
-    # participant_details = get_participant_details()
+    age, participant, session = get_participant_details()
+    # hier wel deze dingen saven bij de participantinfo.csv
+
+    # Connect to eyetracker
+    tracker = connectTracker(participant, session)
 
     # Start practice trials
 
     # Check practice performance
-    # class pandas.DataFrame(data=None, index=None, columns=None, dtype=None, copy=None)
 
-    # columnsIndex or array-like
-
-    # Column labels to use for resulting frame when data does not have them, defaulting to RangeIndex(0, 1, 2, …, n). If data contains column labels, will perform column selection instead.
-
-    # Do experiment
-    # data = [
-    #     {'trial_number': 1, 'reaction_time': 300, 'rotation': 45},
+    # data looks like this:
+    #     [{'trial_number': 1, 'reaction_time': 300, 'rotation': 45},
     #     {'trial_number': 2, 'reaction_time': 400, 'rotation': 60},
     #     {'trial_number': 3, 'reaction_time': 200, 'rotation': 38}]
     data = []
 
+    # Start eyetracker
+    startTracker(tracker)
+
+    # Start experiment
     try:
-        # here we run trials in blocks
+        # Run trials in blocks
         for trial_number in range(10):
             trial_data = {"trial_number": trial_number}
             start_time = datetime.now()
