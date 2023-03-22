@@ -9,6 +9,7 @@ from psychopy import visual
 from math import atan2, degrees
 
 import time
+import random
 
 
 def deg2pix(deg):
@@ -21,12 +22,9 @@ window = visual.Window(color=[0, 0.6, 1], size=[1536, 864], units="pix", fullscr
 fixation_size = {
     "size": deg2pix(1),
     "line": deg2pix(0.2),
-    #        'basecol': (0.2, 0.2, 0.2),
-    #       'probecol': (0.9, 0.9, 0.9),
+    "basecol": (0.2, 0.2, 0.2),
+    "probecol": (0.9, 0.9, 0.9),
 }
-
-print(fixation_size["size"])
-print(fixation_size["line"])
 
 fixation_cross = visual.ShapeStim(
     win=window,
@@ -43,7 +41,29 @@ fixation_cross = visual.ShapeStim(
     units="pix",
 )
 
+bar_stimulus_right = visual.Rect(
+    win=window,
+    units="pix",
+    width=deg2pix(0.4),
+    height=deg2pix(3),
+    pos=[deg2pix(6), 0],
+    fillColor="black",
+    ori=random.randint(0,360),
+)
+
+bar_stimulus_left = visual.Rect(
+    win=window,
+    units="pix",
+    width=deg2pix(0.4),
+    height=deg2pix(3),
+    pos=[-deg2pix(6), 0],
+    fillColor="black",
+    ori=random.randint(0,360),
+)
+
 fixation_cross.draw()
+bar_stimulus_right.draw()
+bar_stimulus_left.draw()
 window.flip()
 
 time.sleep(2)

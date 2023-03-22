@@ -52,4 +52,13 @@ def make_one_bar(position, window):
     return bar_stimulus
 
 def create_stimuli_frame():
-    return 0
+    
+    create_fixation_cross (window).draw()
+
+    make_one_bar(left, window).draw()
+
+    make_one_bar(right, window).draw()
+
+    window.flip()
+
+    return 

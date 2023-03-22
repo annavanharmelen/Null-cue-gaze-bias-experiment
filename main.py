@@ -65,5 +65,5 @@ def main():
     # Thanks for meedoen
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
