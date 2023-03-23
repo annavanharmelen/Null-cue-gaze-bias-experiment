@@ -7,11 +7,11 @@ see README.md for instructions if needed
 
 # Import necessary stuff
 from datetime import datetime
-
-from participantinfo import *
-from set_up import *
-from eyetracker import *
-
+import pandas as pd
+from participantinfo import get_participant_details
+from set_up import set_up
+from eyetracker import Eyelinker
+from argparse import ArgumentParser
 
 def main():
     """
@@ -21,15 +21,25 @@ def main():
      - subject data in one .csv (for all sessions combined)
     """
 
+    # Read command-line arguments
+    parser = ArgumentParser(description=__doc__)
+    parser.add_argument('-t', '--test', action='store_true', help="Just do a test run, i.e. no eyetracking and we'll save the data somewhere else")
+    args = parser.parse_args()
+    testing = args.test
+
     # Initialise set-up
-    window, kboard, mouse = set_up()
+    window, keyboard, mouse = set_up(testing)
 
     # Get participant details
+    pd.read_csv()
+
     age, participant, session = get_participant_details()
     # hier wel deze dingen saven bij de participantinfo.csv
 
-    # Connect to eyetracker
-    tracker = connectTracker(participant, session)
+    # Connect to eyetracker and calibrate it
+    if not testing:
+        eyelinker = Eyelinker(participant, session, window, directory)
+        eyelinker.calibrate()
 
     # Start practice trials
 
@@ -42,7 +52,8 @@ def main():
     data = []
 
     # Start eyetracker
-    startTracker(tracker)
+    if not testing:
+        eyelinker.start()
 
     # Start experiment
     try:

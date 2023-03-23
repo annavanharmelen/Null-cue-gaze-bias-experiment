@@ -11,7 +11,7 @@ import pygame
 from pygame.locals import *
 
 import pylink as pl
-from PsychoPyCustomDisplay import PsychoPyCustomDisplay
+from .PsychoPyCustomDisplay import PsychoPyCustomDisplay
 from math import sin, cos, pi, atan, sqrt, radians, hypot
 
 import psychopy.event

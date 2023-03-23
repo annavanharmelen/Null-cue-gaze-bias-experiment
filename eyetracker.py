@@ -6,42 +6,52 @@ To run the 'placeholder' experiment, see main.py.
 made by Anna van Harmelen, 2023, using code by Rose Nasrawi
 """
 
-from eyelinkPackages import eyelinker
-
+from lib import eyelinker
+from psychopy import event
 import os
 
-from stimuli import window, calibwait
 
+class Eyelinker:
+    """
+    usage:
 
-def connectTracker(subject, session):
-    tracker = eyelinker.EyeLinker(
-        window=window, eye="BOTH", filename="rn6_" + subject + session + ".edf"
-    )
+       from eyetracker import Eyelinker
 
-    return tracker
+    To initialise:
 
+       eyelinker = Eyelinker(participant, session, window, directory)
+       eyelinker.calibrate()
+    """
 
-def startTracker(tracker):
-    os.chdir(eyedir)
+    def __init__(self, participant, session, window, directory) -> None:
+        """
+        This also connects to the tracker
+        """
 
-    tracker.open_edf()
-    tracker.init_tracker()
-    tracker.start_recording()
+        self.directory = directory
+        self.window = window
+        self.tracker = eyelinker.EyeLinker(
+            window=window, eye="BOTH", filename=f"rn6-{participant}-{session}.edf"
+        )
 
+    def start(self):
+        os.chdir(self.directory)
 
-def calibrateTracker(tracker):
-    tracker.stop_recording()
+        self.tracker.open_edf()
+        self.tracker.init_tracker()
+        self.tracker.start_recording()
 
-    calibwait.draw()
-    window.flip()
-    event.waitKeys(keyList="r")
+    def calibrate(self):
+        self.tracker.stop_recording()
 
-    tracker.start_recording()
+        # calibwait.draw() - draws text on screen while calibrating the eye-tracker
+        self.window.flip()
+        event.waitKeys(keyList="r")
+        self.tracker.start_recording()
 
+    def stop(self):
+        os.chdir(self.directory)
 
-def stopTracker(tracker):
-    os.chdir(eyedir)
-
-    tracker.stop_recording()
-    tracker.transfer_edf()
-    tracker.close_edf()
+        self.tracker.stop_recording()
+        self.tracker.transfer_edf()
+        self.tracker.close_edf()
