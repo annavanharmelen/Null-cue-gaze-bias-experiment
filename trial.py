@@ -26,14 +26,16 @@ ECCENTRICITY = 6
 
 
 def deg2pix(deg, monitor):
-    dpix = degrees(atan2(0.5 * monitor["h"], monitor["d"])) / (0.5 * monitor["res"][0])
+    degrees_per_pixel = degrees(atan2(0.5 * monitor["h"], monitor["d"])) / (
+        0.5 * monitor["res"][0]
+    )
     return round(deg / dpix)
+
 
 px_per_degree
 # we waren bezig met:
-# is dit degrees per pixel of pixels per degree?
 # en: moet monitor:h de hoogte of de breedte van het scherm zijn en waarom heet het dan 'h'?
-# en dat magic number van dpix kan dan beter naar set-up
+# en dat magic number van dpix kan beter naar set-up
 
 
 _cached_fixation_cross = None
@@ -70,17 +72,17 @@ def create_fixation_cross(window, monitor):
 def make_one_bar(orientation, colour, position, window):
 
     # Check input
-    if position == "left":
-        pos = [-deg2pix(ECCENTRICITY), 0]
-    elif position == "right":
-        pos = [deg2pix(ECCENTRICITY), 0]
+    if position == 'left':
+        pos = (-deg2pix(ECCENTRICITY), 0)
+    elif position == 'right':
+        pos = (deg2pix(ECCENTRICITY), 0)
     else:
         raise Exception(f"Expected 'left' or 'right', but received {position!r}. :(")
 
     # Create bar stimulus
     bar_stimulus = visual.Rect(
         win=window,
-        units="pix",
+        units='pix',
         width=deg2pix(0.4),
         height=deg2pix(3),
         pos=pos,
@@ -94,17 +96,34 @@ def make_one_bar(orientation, colour, position, window):
 def create_stimuli_frame(orientations, colours, window):
 
     create_fixation_cross(window)
-    make_one_bar(orientations[0], colours[0], "left", window)
-    make_one_bar(orientations[1], colours[1], "right", window)
+    make_one_bar(orientations[0], colours[0], 'left', window)
+    make_one_bar(orientations[1], colours[1], 'right', window)
 
-def create_capture_cue(iets):
-    ...
+
+def create_capture_cue_frame(colour, window):
+
+    capture_cue = visual.Rect(
+        win=window,
+        units='pix',
+        width=deg2pix(2),
+        height=deg2pix(2),
+        pos=(0,0),
+        lineColor =colour,
+        lineWidth = deg2pix(0.1),
+        fillColor = None,
+    )
+
+    capture_cue.draw()
+    create_fixation_cross(window)
+
 
 def create_response_dials(iets):
     ...
 
+
 def get_response(iets):
     ...
+
 
 def do_while_showing(waiting_time, something_to_do, window):
     """
@@ -119,19 +138,19 @@ def do_while_showing(waiting_time, something_to_do, window):
 
 def single_trial(orientations, stimuli_colours, capture_colour, window):
     screens = [
-     (0, lambda: 0 / 0),  # initial one to make life easier
-     (0.1, lambda: create_fixation_cross(window)),
-     (0.25, lambda: create_stimuli_frame(orientations, stimuli_colours, window)),
-     (0.75, lambda: create_fixation_cross(window)),
-     (0.25, lambda: create_capture_cue(capture_colour, window)),
-     (1.75, lambda: create_fixation_cross(window)),
-     (None, lambda: create_response_dials(window))  # draw _something_ to make sure the timing is correct
+        (0, lambda: 0 / 0),  # initial one to make life easier
+        (0.1, lambda: create_fixation_cross(window)),
+        (0.25, lambda: create_stimuli_frame(orientations, stimuli_colours, window)),
+        (0.75, lambda: create_fixation_cross(window)),
+        (0.25, lambda: create_capture_cue_frame(capture_colour, window)),
+        (1.75, lambda: create_fixation_cross(window)),
+        (None, lambda: create_response_dials(window))
     ]
 
     # !!! The timing you pass to do_while_showing is the timing for the previously drawn screen.
 
     for index, (duration, _) in enumerate(screens[:-1]):
         # Draw the next screen while showing the current one
-        do_while_showing(duration, screens[index+1][1])
-    
+        do_while_showing(duration, screens[index + 1][1])
+
     return get_response(window)
