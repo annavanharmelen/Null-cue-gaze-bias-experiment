@@ -1,5 +1,5 @@
 """
-This script contains the functions necessary for
+This file contains the functions necessary for
 connecting and using the eyetracker.
 To run the 'placeholder' experiment, see main.py.
 

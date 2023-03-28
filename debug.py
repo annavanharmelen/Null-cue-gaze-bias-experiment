@@ -7,9 +7,31 @@ made by Anna van Harmelen, 2023
 
 from psychopy import visual
 from math import atan2, degrees
-
 import time
 import random
+from set_up import set_up
+import pandas as pd
+
+
+test_data = pd.DataFrame({"number": [1, 2, 3], "fruits": ['apples', 'bananas', 'cactus']})
+print(test_data)
+
+#test_data.fruits.iloc[-1] = 'citroen'
+#test_data.loc[:, ('one', 'second')] = value
+test_data.loc[test_data.index[-1], "fruits"] = "citroen"
+print(test_data)
+
+
+# stop here
+import sys
+sys.exit()
+
+
+set_up(True)
+
+from set_up import global_state
+
+print(global_state)
 
 
 def deg2pix(deg):
@@ -21,7 +43,7 @@ def deg2pix(deg):
 # want dan bereken je nu het aantal pixels dat daarmee overeenkomt.
 
 
-window = visual.Window(color=[0, 0.6, 1], size=[1920, 1080], units="pix", fullscr=True)
+# window = visual.Window(color=[0, 0.6, 1], size=[1920, 1080], units="pix", fullscr=True)
 
 fixation_size = {
     "size": deg2pix(0.2),

@@ -1,0 +1,6 @@
+trial_number,start_time,end_time,stimuli_colours,capture_colour,left_orientation,right_orientation,target_bar,report_orientation,performance,difference
+1,1679994133.687851,1679994135.7216055,"['red', 'blue']",green,31,-10,left,22,90,9
+2,1679994135.7216055,1679994137.5404015,"['blue', 'red']",blue,-34,16,right,-37,41,53
+3,1679994137.5404015,1679994139.4051957,"['yellow', 'red']",green,15,42,left,14,99,1
+4,1679994139.4051957,1679994141.2387786,"['blue', 'green']",red,-54,9,right,-33,53,42
+5,1679994141.2387786,1679994143.9714262,"['green', 'yellow']",blue,-23,31,left,-36,86,13

@@ -1,5 +1,5 @@
 """
-This script contains the functions necessary for
+This file contains the functions necessary for
 creating the interactive response dial at the end of a trial.
 To run the 'placeholder' experiment, see main.py.
 
@@ -7,22 +7,23 @@ made by Anna van Harmelen, 2023
 """
 
 from psychopy import core, visual, event
-from math import cos, sin, degrees, pi
-import random
-from trial import deg2pix
-
-dial_step_size = (0.5*pi) / 60 # I don't understand why this is (the 60 is the refresh rate of the screen in Hz)
+from psychopy.hardware.keyboard import Keyboard
+from math import cos, sin, degrees
 
 
-def turn_handle(pos, rad):
+def turn_handle(pos, dial_step_size):
 
     x, y = pos
-    pos = (x * cos(rad) + y * sin(rad), -x * sin(rad) + y * cos(rad))
+    pos = (
+        x * cos(dial_step_size) + y * sin(dial_step_size),
+        -x * sin(dial_step_size) + y * cos(dial_step_size),
+    )
 
+    # centre, distance, rad
     return pos
 
 
-def get_report_orientation(key, turns):
+def get_report_orientation(key, turns, dial_step_size):
 
     report_orientation = degrees(turns * dial_step_size)
 
@@ -33,8 +34,9 @@ def get_report_orientation(key, turns):
 
 
 def evaluate_response(report_orientation, target_orientation):
+    report_orientation = round(report_orientation)
 
-    difference = abs(target_orientation - round(report_orientation))
+    difference = abs(target_orientation - report_orientation)
 
     if difference > 90:
         difference -= 180
@@ -42,80 +44,103 @@ def evaluate_response(report_orientation, target_orientation):
 
     performance = round(100 - difference / 90 * 100)
 
-    return performance, difference
+    return {
+        "report_orientation": report_orientation,
+        "performance": performance,
+        "difference": difference,
+    }
 
 
-def getOri(tilt):
-
-    ori = [
-        random.randint(bar[tilt[0]][0], bar[tilt[0]][1]),
-        random.randint(bar[tilt[1]][0], bar[tilt[1]][1]),
-    ]
-
-    return ori
-
-
-def makeDial(rad, pos=(0, 0), handle=False, window):
+def make_circle(rad, settings, pos=(0, 0), handle=False):
 
     circle = visual.Circle(
-        win=window,
-        radius=rad,
-        edges=deg2pix(1),
-        lineWidth=deg2pix(0.05),
-        lineColor='black',
-        pos=pos,
+        win=settings["window"],
+        radius=settings["deg2pix"](rad),
+        edges=settings["deg2pix"](1),
+        lineWidth=settings["deg2pix"](0.05),
+        fillColor=None,
+        pos=(settings["deg2pix"](pos[0]), settings["deg2pix"](pos[1])),
     )
 
     if handle:
-        circle.fillColor = None
+        circle.lineColor = "black"
+    else:
+        circle.lineColor = [-0.5, -0.5, -0.5]
+
     return circle
 
 
-dialcirc = makeDial(deg2pix(0.15), window)
-turntop = makeDial(deg2pix(0.15), pos=(0, deg2pix(1.5)), handle=True)
-turnbot = makeDial(deg2pix(0.15), pos=(0, -deg2pix(1.5)), handle=True)
+def make_dial(settings):
+    dial_circle = make_circle(1.5, settings)
+    top_dial = make_circle(
+        0.15,
+        settings,
+        pos=(0, 1.5),
+        handle=True,
+    )
+    bottom_dial = make_circle(
+        0.15,
+        settings,
+        pos=(0, -1.5),
+        handle=True,
+    )
+
+    return dial_circle, top_dial, bottom_dial
 
 
-def response_dial(keyboard, window):
+def get_response(target_orientation, settings, additional_objects=[]):
 
-    ori = getOri("LR")
+    keyboard: Keyboard = settings["keyboard"]
+    window = settings["window"]
 
     keyboard.clearEvents()
-    released = []
-    pressed = []
     turns = 0
 
-    turntop.pos = (0, dial["hpos"])
-    turnbot.pos = (0, -dial["hpos"])
+    dial_circle, top_dial, bottom_dial = make_dial(settings)
 
-    dialcirc.draw()
-    turntop.draw()
-    turnbot.draw()
+    for item in additional_objects:
+        item.draw()
+
+    dial_circle.draw()
+    top_dial.draw()
+    bottom_dial.draw()
+
 
     window.flip()
 
+    # Wait indefinitely until the participant starts giving an answer
     pressed = event.waitKeys(keyList=["z", "m", "q"])
 
     if "m" in pressed:
         key = "m"
-        rad = dial_step_size
+        rad = settings["dial_step_size"]
     elif "z" in pressed:
         key = "z"
-        rad = -dial_step_size
+        rad = -settings["dial_step_size"]
     if "q" in pressed:
         core.quit()
 
-    while released == [] and turns <= 60: #since the max amount of turns has to be less than the refresh rate, you only get 1 sec to respond
+    # Stop rotating the moment either of the following happens:
+    # - the participant released the rotation key
+    # - a second passed
 
-        released = keyboard.getKeys(keyList=[key], waitRelease=True, clear=True)
+    while not keyboard.getKeys(keyList=[key]) and turns <= settings["monitor"]["Hz"]:
 
-        turntop.pos = turn_handle(turntop.pos, rad)
-        turnbot.pos = turn_handle(turnbot.pos, rad)
+        top_dial.pos = turn_handle(top_dial.pos, rad)
+        bottom_dial.pos = turn_handle(bottom_dial.pos, rad)
 
         turns += 1
-        dialcirc.draw()
-        # centerbar.draw()
-        turntop.draw()
-        turnbot.draw()
+
+        for item in additional_objects:
+            item.draw()
+        
+        dial_circle.draw()
+        top_dial.draw()
+        bottom_dial.draw()
 
         window.flip()
+
+    return evaluate_response(
+        get_report_orientation(key, turns, settings["dial_step_size"]),
+        target_orientation,
+    )
