@@ -15,6 +15,7 @@ from argparse import ArgumentParser
 from trial import single_trial, generate_stimuli_characteristics
 from time import time
 from practice import practice
+import datetime as dt
 
 def main():
     """
@@ -38,6 +39,7 @@ def main():
 
     # Initialise set-up
     settings = set_up(testing)
+    start_of_experiment = time()
 
     # Get participant details and save in same file as before
     old_participants = pd.read_csv(rf"{settings['directory']}\participantinfo.csv")
@@ -53,15 +55,10 @@ def main():
         )
         eyelinker.calibrate()
 
-    # Start practice trials
+    # Practice (also checks performance)
     practice(3, settings)
 
-    # Check practice performance
-
-    # data looks like this:
-    #     [{'trial_number': 1, 'reaction_time': 300, 'rotation': 45},
-    #     {'trial_number': 2, 'reaction_time': 400, 'rotation': 60},
-    #     {'trial_number': 3, 'reaction_time': 200, 'rotation': 38}]
+    # Initialise some stuff
     data = []
     current_trial = 0
 
@@ -89,8 +86,8 @@ def main():
                 {
                     "trial_number": current_trial,
                     #'reaction_time': reaction_time,
-                    "start_time": start_time,
-                    "end_time": end_time,
+                    "start_time": str(dt.timedelta(seconds = (start_time - start_of_experiment))),
+                    "end_time": str(dt.timedelta(seconds = (end_time - start_of_experiment))),
                     **stimuli_characteristics,
                     **report
                 }

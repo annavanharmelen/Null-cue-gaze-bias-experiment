@@ -1,0 +1,4 @@
+trial_number,start_time,end_time,stimuli_colours,capture_colour,left_orientation,right_orientation,target_bar,target_colour,target_orientation,report_orientation,performance,difference
+1,0:00:01.324253,0:00:06.137201,"[[0.9, 0.8, 0.3], [0, 0.8, 0.4]]","[0, 0.8, 0.4]",43,61,left,"[0.9, 0.8, 0.3]",43,3,56,40
+2,0:00:06.137722,0:00:11.387984,"[[0.8, 0.2, 0.2], [0, 0.6, 1]]","[0, 0.6, 1]",-80,-71,left,"[0.8, 0.2, 0.2]",-80,-48,64,32
+3,0:00:11.387984,0:00:15.352861,"[[0.9, 0.8, 0.3], [0.8, 0.2, 0.2]]","[0.8, 0.2, 0.2]",28,29,left,"[0.9, 0.8, 0.3]",28,39,88,11

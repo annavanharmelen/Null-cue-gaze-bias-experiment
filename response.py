@@ -10,7 +10,6 @@ from psychopy import core, visual, event
 from psychopy.hardware.keyboard import Keyboard
 from math import cos, sin, degrees
 
-
 def turn_handle(pos, dial_step_size):
 
     x, y = pos
@@ -88,7 +87,8 @@ def make_dial(settings):
     return dial_circle, top_dial, bottom_dial
 
 
-def get_response(target_orientation, settings, additional_objects=[]):
+def get_response(target_orientation, target_colour, settings, additional_objects=[]):
+    from trial import create_fixation_cross
 
     keyboard: Keyboard = settings["keyboard"]
     window = settings["window"]
@@ -104,7 +104,7 @@ def get_response(target_orientation, settings, additional_objects=[]):
     dial_circle.draw()
     top_dial.draw()
     bottom_dial.draw()
-
+    create_fixation_cross(settings, target_colour)
 
     window.flip()
 
@@ -137,6 +137,7 @@ def get_response(target_orientation, settings, additional_objects=[]):
         dial_circle.draw()
         top_dial.draw()
         bottom_dial.draw()
+        create_fixation_cross(settings, target_colour)
 
         window.flip()
 
@@ -144,3 +145,8 @@ def get_response(target_orientation, settings, additional_objects=[]):
         get_report_orientation(key, turns, settings["dial_step_size"]),
         target_orientation,
     )
+
+def wait_for_key(key_list, keyboard):
+    keyboard: Keyboard = keyboard
+    keyboard.clearEvents()
+    event.waitKeys(keyList=key_list)

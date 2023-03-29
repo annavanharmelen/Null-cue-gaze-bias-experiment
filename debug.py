@@ -11,6 +11,31 @@ import time
 import random
 from set_up import set_up
 import pandas as pd
+import datetime as dt
+
+
+og_start = time.time()
+time.sleep(1)
+start = time.time()
+time.sleep(1)
+trial1_done = time.time()
+time.sleep(1)
+trial2_done = time.time()
+
+trial1_length = trial1_done - start
+trial2_length = trial2_done - trial1_done
+print(dt.timedelta(seconds = trial1_length))
+print(dt.timedelta(seconds = trial2_length))
+print(dt.timedelta(seconds = (time.time() - og_start)))
+
+
+# stop here
+import sys
+sys.exit()
+
+temp = random.sample([[0, 0.6, 1], [0.8, 0.2, 0.2], [0, 0.8, 0.4], [0.9, 0.8, 0.3]], 2)
+print(temp)
+print(type(temp))
 
 
 test_data = pd.DataFrame({"number": [1, 2, 3], "fruits": ['apples', 'bananas', 'cactus']})
@@ -22,9 +47,6 @@ test_data.loc[test_data.index[-1], "fruits"] = "citroen"
 print(test_data)
 
 
-# stop here
-import sys
-sys.exit()
 
 
 set_up(True)

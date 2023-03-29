@@ -27,40 +27,54 @@ ECCENTRICITY = 6
 
 
 def generate_stimuli_characteristics():
+    stimuli_colours = random.sample(
+        [[0, 0.6, 1], [0.8, 0.2, 0.2], [0, 0.8, 0.4], [0.9, 0.8, 0.3]], 2
+    )
+
+    target_bar = random.choice(["left", "right"])
+
+    orientations = [random.randint(-80, 80), random.randint(-80, 80)]
+
+    if target_bar == "left":
+        target_colour = stimuli_colours[0]
+        target_orientation = orientations[0]
+    else:
+        target_colour = stimuli_colours[1]
+        target_orientation = orientations[1]
 
     return {
-        "stimuli_colours": random.sample(["blue", "red", "green", "yellow"], 2),
-        "capture_colour": random.choice(["red", "blue", "green"]),
-        "left_orientation": random.randint(-80, 80),
-        "right_orientation": random.randint(-80, 80),
-        "target_bar": random.choice(["left", "right"]),
+        "stimuli_colours": stimuli_colours,
+        "capture_colour": random.choice(stimuli_colours),
+        "left_orientation": orientations[0],
+        "right_orientation": orientations[1],
+        "target_bar": target_bar,
+        "target_colour": target_colour,
+        "target_orientation": target_orientation,
     }
 
 
-def create_fixation_cross(settings):
-    _cached_fixation_cross = None
+def create_fixation_cross(settings, colour=[0, 0, 0]):
 
-    # Create fixation cross
-    if _cached_fixation_cross is None:
-        # Determine size of fixation cross
-        fixation_size = settings["deg2pix"](0.2)
+    # Determine size of fixation cross
+    fixation_size = settings["deg2pix"](0.2)
 
-        _cached_fixation_cross = visual.ShapeStim(
-            win=settings["window"],
-            vertices=(
-                (0, -fixation_size),
-                (0, fixation_size),
-                (0, 0),
-                (-fixation_size, 0),
-                (fixation_size, 0),
-            ),
-            lineWidth=settings["deg2pix"](0.05),
-            lineColor=[0, 0, 0],
-            closeShape=False,
-            units="pix",
-        )
+    # Make fixation cross
+    fixation_cross = visual.ShapeStim(
+        win=settings["window"],
+        vertices=(
+            (0, -fixation_size),
+            (0, fixation_size),
+            (0, 0),
+            (-fixation_size, 0),
+            (fixation_size, 0),
+        ),
+        lineWidth=settings["deg2pix"](0.05),
+        lineColor=colour,
+        closeShape=False,
+        units="pix",
+    )
 
-    _cached_fixation_cross.draw()
+    fixation_cross.draw()
 
 
 def make_one_bar(orientation, colour, position, settings):
@@ -113,10 +127,6 @@ def create_capture_cue_frame(colour, settings):
     create_fixation_cross(settings)
 
 
-def create_response_dials(iets):
-    ...
-
-
 def do_while_showing(waiting_time, something_to_do, window):
     """
     Show whatever is drawn to the screen for exactly `waiting_time` period,
@@ -132,6 +142,8 @@ def single_trial(
     left_orientation,
     right_orientation,
     target_bar,
+    target_colour,
+    target_orientation,
     stimuli_colours,
     capture_colour,
     settings,
@@ -149,7 +161,7 @@ def single_trial(
         (0.75, lambda: create_fixation_cross(settings)),
         (0.25, lambda: create_capture_cue_frame(capture_colour, settings)),
         (1.75, lambda: create_fixation_cross(settings)),
-        # (None, lambda: create_response_dials(window))
+        (None, lambda: create_fixation_cross(settings, target_colour)),
     ]
 
     # !!! The timing you pass to do_while_showing is the timing for the previously drawn screen.
@@ -158,6 +170,13 @@ def single_trial(
         # Draw the next screen while showing the current one
         do_while_showing(duration, screens[index + 1][1], settings["window"])
 
-    return get_response(
-        left_orientation if target_bar == "left" else right_orientation, settings
+    return get_response(target_orientation, target_colour, settings)
+
+
+def show_text(input, window, pos=(0, 0), colour=[-1, -1, -1]):
+
+    textstim = visual.TextStim(
+        win=window, font="Courier New", text=input, color=colour, pos=pos, height=24
     )
+
+    textstim.draw()
