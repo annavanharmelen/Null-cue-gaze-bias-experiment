@@ -1,17 +1,16 @@
 """
 This file contains the functions necessary for
-creating the fixation cross and the bar stimuli,
-and then run a single trial start-to-finish.
+creating and running a single trial start-to-finish.
 To run the 'placeholder' experiment, see main.py.
 
 made by Anna van Harmelen, 2023
 """
 
 from psychopy import visual
-from math import atan2, degrees
 from psychopy.core import wait
 from time import time
 from response import get_response
+from stimuli import create_fixation_cross, create_capture_cue_frame, create_stimuli_frame
 import random
 
 # experiment flow:
@@ -24,108 +23,40 @@ import random
 # 7. dials voor respons van proefpersoon
 
 ECCENTRICITY = 6
+COLOURS = ['#ff99ac', '#f5e2a3', '#a8f0d1', '#99ceff']
 
+def generate_stimuli_characteristics(condition, target_bar):
+    neutral_colour, *stimuli_colours = random.sample(COLOURS, 3)
 
-def generate_stimuli_characteristics():
-    stimuli_colours = random.sample(
-        [[0, 0.6, 1], [0.8, 0.2, 0.2], [0, 0.8, 0.4], [0.9, 0.8, 0.3]], 2
-    )
-
-    target_bar = random.choice(["left", "right"])
-
-    orientations = [random.randint(-80, 80), random.randint(-80, 80)]
+    orientations = [
+        random.choice([-1, 1]) * random.randint(5, 85),
+        random.choice([-1, 1]) * random.randint(5, 85),
+    ]
 
     if target_bar == "left":
-        target_colour = stimuli_colours[0]
+        target_colour, distractor_colour = stimuli_colours
         target_orientation = orientations[0]
     else:
-        target_colour = stimuli_colours[1]
+        distractor_colour, target_colour = stimuli_colours
         target_orientation = orientations[1]
+
+    if condition == 'congruent':
+        capture_colour = target_colour
+    elif condition == 'incongruent':
+        capture_colour = distractor_colour
+    elif condition == 'neutral':
+        capture_colour = neutral_colour
 
     return {
         "stimuli_colours": stimuli_colours,
-        "capture_colour": random.choice(stimuli_colours),
+        "capture_colour": capture_colour,
+        "trial_condition": condition,
         "left_orientation": orientations[0],
         "right_orientation": orientations[1],
         "target_bar": target_bar,
         "target_colour": target_colour,
         "target_orientation": target_orientation,
     }
-
-
-def create_fixation_cross(settings, colour=[0, 0, 0]):
-
-    # Determine size of fixation cross
-    fixation_size = settings["deg2pix"](0.2)
-
-    # Make fixation cross
-    fixation_cross = visual.ShapeStim(
-        win=settings["window"],
-        vertices=(
-            (0, -fixation_size),
-            (0, fixation_size),
-            (0, 0),
-            (-fixation_size, 0),
-            (fixation_size, 0),
-        ),
-        lineWidth=settings["deg2pix"](0.05),
-        lineColor=colour,
-        closeShape=False,
-        units="pix",
-    )
-
-    fixation_cross.draw()
-
-
-def make_one_bar(orientation, colour, position, settings):
-
-    # Check input
-    if position == "left":
-        pos = (-settings["deg2pix"](ECCENTRICITY), 0)
-    elif position == "right":
-        pos = (settings["deg2pix"](ECCENTRICITY), 0)
-    elif position == "middle":
-        pos = (0, 0)
-    else:
-        raise Exception(f"Expected 'left' or 'right', but received {position!r}. :(")
-
-    # Create bar stimulus
-    bar_stimulus = visual.Rect(
-        win=settings["window"],
-        units="pix",
-        width=settings["deg2pix"](0.4),
-        height=settings["deg2pix"](3),
-        pos=pos,
-        ori=orientation,
-        fillColor=colour,
-    )
-
-    return bar_stimulus
-
-
-def create_stimuli_frame(left_orientation, right_orientation, colours, settings):
-
-    create_fixation_cross(settings)
-    make_one_bar(left_orientation, colours[0], "left", settings).draw()
-    make_one_bar(right_orientation, colours[1], "right", settings).draw()
-
-
-def create_capture_cue_frame(colour, settings):
-
-    capture_cue = visual.Rect(
-        win=settings["window"],
-        units="pix",
-        width=settings["deg2pix"](2),
-        height=settings["deg2pix"](2),
-        pos=(0, 0),
-        lineColor=colour,
-        lineWidth=settings["deg2pix"](0.1),
-        fillColor=None,
-    )
-
-    capture_cue.draw()
-    create_fixation_cross(settings)
-
 
 def do_while_showing(waiting_time, something_to_do, window):
     """
@@ -146,6 +77,7 @@ def single_trial(
     target_orientation,
     stimuli_colours,
     capture_colour,
+    trial_condition,
     settings,
 ):
 
@@ -173,7 +105,7 @@ def single_trial(
     return get_response(target_orientation, target_colour, settings)
 
 
-def show_text(input, window, pos=(0, 0), colour=[-1, -1, -1]):
+def show_text(input, window, pos=(0, 0), colour='#000000'):
 
     textstim = visual.TextStim(
         win=window, font="Courier New", text=input, color=colour, pos=pos, height=24

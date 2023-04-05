@@ -9,6 +9,9 @@ made by Anna van Harmelen, 2023
 from psychopy import core, visual, event
 from psychopy.hardware.keyboard import Keyboard
 from math import cos, sin, degrees
+from stimuli import create_fixation_cross
+from time import time
+
 
 def turn_handle(pos, dial_step_size):
 
@@ -32,21 +35,27 @@ def get_report_orientation(key, turns, dial_step_size):
     return report_orientation
 
 
-def evaluate_response(report_orientation, target_orientation):
+def evaluate_response(report_orientation, target_orientation, key):
     report_orientation = round(report_orientation)
 
-    difference = abs(target_orientation - report_orientation)
+    signed_difference = target_orientation - report_orientation
+    abs_difference = abs(target_orientation - report_orientation)
 
-    if difference > 90:
-        difference -= 180
-        difference *= -1
+    if abs_difference > 90:
+        abs_difference -= 180
+        abs_difference *= -1
 
-    performance = round(100 - difference / 90 * 100)
+    performance = round(100 - abs_difference / 90 * 100)
+
+    correct_key = (target_orientation > 0 and key == "m") or \
+        (target_orientation < 0 and key == "z")
 
     return {
         "report_orientation": report_orientation,
         "performance": performance,
-        "difference": difference,
+        "absolute_difference": abs_difference,
+        "correct_key": correct_key,
+        "signed_difference": signed_difference,
     }
 
 
@@ -88,7 +97,6 @@ def make_dial(settings):
 
 
 def get_response(target_orientation, target_colour, settings, additional_objects=[]):
-    from trial import create_fixation_cross
 
     keyboard: Keyboard = settings["keyboard"]
     window = settings["window"]
@@ -96,20 +104,21 @@ def get_response(target_orientation, target_colour, settings, additional_objects
     keyboard.clearEvents()
     turns = 0
 
-    dial_circle, top_dial, bottom_dial = make_dial(settings)
-
     for item in additional_objects:
         item.draw()
 
-    dial_circle.draw()
-    top_dial.draw()
-    bottom_dial.draw()
     create_fixation_cross(settings, target_colour)
 
     window.flip()
 
+    idle_reaction_time_start = time()
+
     # Wait indefinitely until the participant starts giving an answer
+    keyboard.clearEvents()  # do it again to be sure
     pressed = event.waitKeys(keyList=["z", "m", "q"])
+
+    response_started = time()
+    idle_reaction_time = response_started - idle_reaction_time_start
 
     if "m" in pressed:
         key = "m"
@@ -118,11 +127,13 @@ def get_response(target_orientation, target_colour, settings, additional_objects
         key = "z"
         rad = -settings["dial_step_size"]
     if "q" in pressed:
-        core.quit()
+        raise KeyboardInterrupt()
 
     # Stop rotating the moment either of the following happens:
     # - the participant released the rotation key
     # - a second passed
+
+    dial_circle, top_dial, bottom_dial = make_dial(settings)
 
     while not keyboard.getKeys(keyList=[key]) and turns <= settings["monitor"]["Hz"]:
 
@@ -133,7 +144,7 @@ def get_response(target_orientation, target_colour, settings, additional_objects
 
         for item in additional_objects:
             item.draw()
-        
+
         dial_circle.draw()
         top_dial.draw()
         bottom_dial.draw()
@@ -141,10 +152,19 @@ def get_response(target_orientation, target_colour, settings, additional_objects
 
         window.flip()
 
-    return evaluate_response(
-        get_report_orientation(key, turns, settings["dial_step_size"]),
-        target_orientation,
-    )
+    response_time = time() - response_started
+
+    return {
+        "idle_reaction_time": idle_reaction_time,
+        "response_time": response_time,
+        "key_pressed": key,
+        **evaluate_response(
+            get_report_orientation(key, turns, settings["dial_step_size"]),
+            target_orientation,
+            key,
+        ),
+    }
+
 
 def wait_for_key(key_list, keyboard):
     keyboard: Keyboard = keyboard

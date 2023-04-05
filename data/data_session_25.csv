@@ -1,0 +1,11 @@
+trial_number,start_time,end_time,stimuli_colours,capture_colour,trial_condition,left_orientation,right_orientation,target_bar,target_colour,target_orientation,report_orientation,performance,absolute_difference,signed_difference
+1,0:00:01.814136,0:00:07.209388,"['#f5e2a3', '#ff99ac']",#f5e2a3,incongruent,-6,-79,right,#ff99ac,-79,-64,83,15,-15
+2,0:00:07.209388,0:00:11.726229,"['#a8f0d1', '#f5e2a3']",#f5e2a3,congruent,75,-69,right,#f5e2a3,-69,-60,90,9,-9
+3,0:00:11.726229,0:00:16.110026,"['#99ceff', '#ff99ac']",#f5e2a3,neutral,60,-51,right,#ff99ac,-51,-22,68,29,-29
+4,0:00:16.110026,0:00:19.726034,"['#f5e2a3', '#a8f0d1']",#f5e2a3,incongruent,-10,49,right,#a8f0d1,49,-15,29,64,64
+5,0:00:19.726034,0:00:24.309648,"['#f5e2a3', '#ff99ac']",#99ceff,neutral,22,71,right,#ff99ac,71,46,72,25,25
+6,0:00:24.309648,0:00:28.709832,"['#a8f0d1', '#f5e2a3']",#99ceff,neutral,48,-65,right,#f5e2a3,-65,-51,84,14,-14
+7,0:00:28.709832,0:00:32.842293,"['#a8f0d1', '#99ceff']",#99ceff,congruent,35,80,right,#99ceff,80,68,87,12,12
+8,0:00:32.842293,0:00:36.460993,"['#f5e2a3', '#a8f0d1']",#a8f0d1,congruent,-59,-47,right,#a8f0d1,-47,-16,66,31,-31
+9,0:00:36.460993,0:00:40.177112,"['#a8f0d1', '#f5e2a3']",#a8f0d1,incongruent,54,-46,right,#f5e2a3,-46,25,21,71,-71
+10,0:00:40.177112,0:00:44.626588,"['#99ceff', '#a8f0d1']",#a8f0d1,incongruent,-56,67,left,#99ceff,-56,-55,99,1,-1

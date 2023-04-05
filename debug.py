@@ -14,6 +14,13 @@ import pandas as pd
 import datetime as dt
 
 
+trials = zip(2 * ['neutral', 'congruent', 'incongruent'], 3 * ['left', 'right'])
+print(list(trials))
+
+# stop here
+import sys
+sys.exit()
+
 og_start = time.time()
 time.sleep(1)
 start = time.time()
@@ -29,9 +36,6 @@ print(dt.timedelta(seconds = trial2_length))
 print(dt.timedelta(seconds = (time.time() - og_start)))
 
 
-# stop here
-import sys
-sys.exit()
 
 temp = random.sample([[0, 0.6, 1], [0.8, 0.2, 0.2], [0, 0.8, 0.4], [0.9, 0.8, 0.3]], 2)
 print(temp)

@@ -1,0 +1,11 @@
+trial_number,start_time,end_time,stimuli_colours,capture_colour,trial_condition,left_orientation,right_orientation,target_bar,target_colour,target_orientation,idle_reaction_time,response_time,key_pressed,report_orientation,performance,absolute_difference,correct_key,signed_difference
+1,0:00:06.909154,0:00:11.838976,"['#f5e2a3', '#a8f0d1']",#a8f0d1,incongruent,-53,-56,left,#f5e2a3,-53,1.139998197555542,0.6385526657104492,z,-57,96,4,True,4
+2,0:00:11.838976,0:00:16.371548,"['#f5e2a3', '#a8f0d1']",#a8f0d1,congruent,64,5,right,#a8f0d1,5,1.1556007862091064,0.22589397430419922,m,21,82,16,True,-16
+3,0:00:16.371548,0:00:20.722344,"['#a8f0d1', '#f5e2a3']",#99ceff,neutral,64,30,right,#f5e2a3,30,0.7366833686828613,0.4627058506011963,m,42,87,12,True,-12
+4,0:00:20.722344,0:00:24.739347,"['#f5e2a3', '#99ceff']",#99ceff,incongruent,-45,57,left,#f5e2a3,-45,0.3980565071105957,0.4683825969696045,m,42,3,87,False,-87
+5,0:00:24.739347,0:00:28.821802,"['#f5e2a3', '#ff99ac']",#ff99ac,congruent,46,46,right,#ff99ac,46,0.32739996910095215,0.6060082912445068,m,55,90,9,True,-9
+6,0:00:28.821802,0:00:33.021395,"['#99ceff', '#ff99ac']",#a8f0d1,neutral,60,-69,left,#99ceff,60,0.5863027572631836,0.46181821823120117,z,-42,13,78,False,102
+7,0:00:33.021395,0:00:37.188607,"['#99ceff', '#a8f0d1']",#f5e2a3,neutral,-57,58,left,#99ceff,-57,0.3771076202392578,0.6364705562591553,z,-57,100,0,True,0
+8,0:00:37.188607,0:00:41.321451,"['#f5e2a3', '#99ceff']",#f5e2a3,congruent,32,-54,left,#f5e2a3,32,0.3628838062286377,0.6187953948974609,m,55,74,23,True,-23
+9,0:00:41.321451,0:00:45.421568,"['#f5e2a3', '#a8f0d1']",#f5e2a3,congruent,28,-6,left,#f5e2a3,28,0.7438828945159912,0.20618462562561035,z,-20,47,48,False,48
+10,0:00:45.421568,0:00:49.671603,"['#a8f0d1', '#f5e2a3']",#a8f0d1,incongruent,5,-83,right,#f5e2a3,-83,0.8638491630554199,0.2345423698425293,z,-21,31,62,True,-62

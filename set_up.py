@@ -35,7 +35,7 @@ def set_up(testing: bool):
         directory = r"bloepediebloepbloep"
 
     window = visual.Window(
-        color=(-0.3, -0.3, -0.3),
+        color=('#7F7F7F'),
         # monitor = 'testMonitor',
         size=monitor["resolution"],
         units="pix",
