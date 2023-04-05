@@ -11,7 +11,7 @@ from trial import (
     generate_stimuli_characteristics,
     show_text,
 )
-from stimuli import make_one_bar
+from stimuli import make_one_bar, create_fixation_cross
 from response import get_response, wait_for_key
 from psychopy import event
 from psychopy.hardware.keyboard import Keyboard
@@ -48,8 +48,9 @@ def practice(settings):
             )
 
             report: dict = get_response(target_orientation, target_colour, settings, [practice_bar])
-
-            show_text(f"{report['performance']}", settings["window"])
+            
+            create_fixation_cross(settings)
+            show_text(f"{report['performance']}", settings["window"], (0, settings['deg2pix'](0.5)))
             settings["window"].flip()
             sleep(0.8)
 
@@ -67,10 +68,6 @@ def practice(settings):
             stimulus = generate_stimuli_characteristics(condition, target_bar)
 
             report: dict = single_trial(**stimulus, settings=settings)
-
-            show_text(f"{report['performance']}", settings["window"])
-            settings["window"].flip()
-            sleep(0.8)
             
     except KeyboardInterrupt:
         show_text(

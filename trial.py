@@ -8,7 +8,7 @@ made by Anna van Harmelen, 2023
 
 from psychopy import visual
 from psychopy.core import wait
-from time import time
+from time import time, sleep
 from response import get_response
 from stimuli import create_fixation_cross, create_capture_cue_frame, create_stimuli_frame
 import random
@@ -102,7 +102,15 @@ def single_trial(
         # Draw the next screen while showing the current one
         do_while_showing(duration, screens[index + 1][1], settings["window"])
 
-    return get_response(target_orientation, target_colour, settings)
+    response = get_response(target_orientation, target_colour, settings)
+
+    # Show performance
+    create_fixation_cross(settings)
+    show_text(f"{response['performance']}", settings["window"], (0, settings['deg2pix'](0.5)))
+    settings["window"].flip()
+    sleep(0.8)
+
+    return response
 
 
 def show_text(input, window, pos=(0, 0), colour='#000000'):
