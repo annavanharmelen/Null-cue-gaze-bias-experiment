@@ -22,7 +22,6 @@ import random
 # 6. probecue
 # 7. dials voor respons van proefpersoon
 
-ECCENTRICITY = 6
 COLOURS = ['#ff99ac', '#f5e2a3', '#a8f0d1', '#99ceff']
 
 def generate_stimuli_characteristics(condition, target_bar):

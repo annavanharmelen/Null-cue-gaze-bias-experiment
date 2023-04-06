@@ -19,8 +19,9 @@ from practice import practice
 import datetime as dt
 from block import create_block
 
-TRIALS_PER_BLOCK = 48
 N_BLOCKS = 16
+TRIALS_PER_BLOCK = 48
+
 
 def main():
     """

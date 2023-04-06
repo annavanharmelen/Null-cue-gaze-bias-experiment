@@ -9,7 +9,8 @@ made by Anna van Harmelen, 2023
 from psychopy import visual
 
 ECCENTRICITY = 6
-
+BAR_SIZE = [0.4, 3] # width, height
+CAPTURE_CUE_SIZE = [2, 2, 0.1] # width, height, linewidth
 
 def create_fixation_cross(settings, colour='#eaeaea'):
 
@@ -51,8 +52,8 @@ def make_one_bar(orientation, colour, position, settings):
     bar_stimulus = visual.Rect(
         win=settings["window"],
         units="pix",
-        width=settings["deg2pix"](0.4),
-        height=settings["deg2pix"](3),
+        width=settings["deg2pix"](BAR_SIZE[0]),
+        height=settings["deg2pix"](BAR_SIZE[1]),
         pos=pos,
         ori=orientation,
         fillColor=colour,
@@ -73,11 +74,11 @@ def create_capture_cue_frame(colour, settings):
     capture_cue = visual.Rect(
         win=settings["window"],
         units="pix",
-        width=settings["deg2pix"](2),
-        height=settings["deg2pix"](2),
+        width=settings["deg2pix"](CAPTURE_CUE_SIZE[0]),
+        height=settings["deg2pix"](CAPTURE_CUE_SIZE[1]),
         pos=(0, 0),
         lineColor=colour,
-        lineWidth=settings["deg2pix"](0.1),
+        lineWidth=settings["deg2pix"](CAPTURE_CUE_SIZE[2]),
         fillColor=None,
     )
 
