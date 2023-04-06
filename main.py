@@ -62,7 +62,7 @@ def main():
         eyelinker.calibrate()
 
     # Practice (also checks performance)
-    #practice(settings)
+    practice(settings)
     
     # Start eyetracker
     if not testing:
