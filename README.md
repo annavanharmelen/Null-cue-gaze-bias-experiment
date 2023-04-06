@@ -1,9 +1,8 @@
-# PLACEHOLDER
+# NULL-CUE GAZE BIAS EXPERIMENT
 
 # ***[work in progress]***
 
-Temporal visuo-motor working memory task (REVIEW), programmed in Python.
-
+A temporal visuo-motor working memory task, designed to measure gaze bias during a non-informative retro cue, programmed in Python.
 
 ## Author
 Made by Anna van Harmelen in 2023, based on code by Rose Nasrawi, see: [TemporalAction-main](https://github.com/rosenasrawi/TemporalAction).
@@ -25,4 +24,4 @@ pip install --index-url=https://pypi.sr-support.com sr-research-pylink
 To make sure the experiment runs correctly, open the set_up.py file to enter the correct specifications of your monitor and set-up on lines 17-35.
 
 ## Running
-The experiment runs in its entirety (including practice trials and explanation) if you run `python main.py`.
+The experiment runs in its entirety (including some explanation, practice trials and breaks) if you run `python main.py`.

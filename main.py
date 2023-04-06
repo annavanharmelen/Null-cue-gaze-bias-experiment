@@ -1,5 +1,5 @@
 """
-Main script for running 'placeholder' experiment
+Main script for running the 'null-cue gaze bias' experiment
 made by Anna van Harmelen, 2023
 
 see README.md for instructions if needed
