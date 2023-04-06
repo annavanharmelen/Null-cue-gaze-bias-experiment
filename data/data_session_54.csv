@@ -1,0 +1,11 @@
+trial_number,block,start_time,end_time,stimuli_colours,capture_colour,trial_condition,left_orientation,right_orientation,target_bar,target_colour,target_orientation,idle_reaction_time,response_time,key_pressed,report_orientation,performance,absolute_difference,correct_key,signed_difference
+1,1,0:00:27.968704,0:00:32.640646,"['#a8f0d1', '#99ceff']",#99ceff,incongruent,-5,24,left,#a8f0d1,-5,0.3540067672729492,0.36097192764282227,m,33,58,38,False,-38
+2,1,0:00:32.640646,0:00:38.257002,"['#a8f0d1', '#f5e2a3']",#a8f0d1,congruent,38,16,left,#a8f0d1,38,1.4151458740234375,0.2503929138183594,m,22,82,16,True,16
+3,1,0:00:38.257002,0:00:43.140053,"['#a8f0d1', '#ff99ac']",#a8f0d1,incongruent,-19,-57,right,#ff99ac,-57,0.5408544540405273,0.39134883880615234,m,36,3,87,False,-93
+4,1,0:00:43.140053,0:00:48.139897,"['#ff99ac', '#99ceff']",#f5e2a3,neutral,-38,52,right,#99ceff,52,0.6242477893829346,0.4251747131347656,m,39,86,13,True,13
+5,1,0:00:48.139897,0:00:53.806927,"['#99ceff', '#f5e2a3']",#a8f0d1,neutral,-72,48,left,#99ceff,-72,1.3226869106292725,0.3943033218383789,m,36,20,72,False,-108
+6,1,0:00:53.806927,0:00:58.556333,"['#a8f0d1', '#f5e2a3']",#f5e2a3,congruent,-53,8,right,#f5e2a3,8,0.6539130210876465,0.1459202766418457,m,14,93,6,True,-6
+7,2,0:01:00.717243,0:01:05.706231,"['#ff99ac', '#f5e2a3']",#a8f0d1,neutral,24,-73,right,#f5e2a3,-73,0.5914595127105713,0.4406697750091553,m,40,26,67,False,-113
+8,2,0:01:05.706231,0:01:10.223581,"['#99ceff', '#a8f0d1']",#a8f0d1,incongruent,14,85,left,#99ceff,14,0.17128491401672363,0.39368462562561035,m,36,76,22,True,-22
+9,2,0:01:10.223581,0:01:15.090629,"['#99ceff', '#a8f0d1']",#99ceff,incongruent,-66,-32,right,#a8f0d1,-32,0.4935009479522705,0.42286014556884766,m,39,21,71,False,-71
+10,2,0:01:15.090629,0:01:19.390332,"['#f5e2a3', '#99ceff']",#a8f0d1,neutral,68,-9,left,#f5e2a3,68,0.007950067520141602,0.34126758575439453,m,27,54,41,True,41
