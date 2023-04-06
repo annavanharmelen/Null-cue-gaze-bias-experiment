@@ -17,10 +17,10 @@ from trial import single_trial, generate_stimuli_characteristics
 from time import time
 from practice import practice
 import datetime as dt
-from block import create_block
+from block import create_block, block_break, long_break, finish, quick_finish
 
-N_BLOCKS = 16
-TRIALS_PER_BLOCK = 48
+N_BLOCKS = 4
+TRIALS_PER_BLOCK = 6
 
 
 def main():
@@ -62,7 +62,7 @@ def main():
         eyelinker.calibrate()
 
     # Practice (also checks performance)
-    practice(settings)
+    #practice(settings)
     
     # Start eyetracker
     if not testing:
@@ -71,13 +71,16 @@ def main():
     # Initialise some stuff
     data = []
     current_trial = 0
+    blocks_done = 0
 
     # Start experiment
     try:
-        for block in range(2 if testing else N_BLOCKS):
+        for block in range(N_BLOCKS):
 
-            block_info = create_block(6 if testing else TRIALS_PER_BLOCK)
+            # Pseudo-randomly create conditions and target locations (so they're weighted)
+            block_info = create_block(TRIALS_PER_BLOCK)
 
+            # Run trials per pseudo-randomly created info
             for condition, target_bar in block_info:
 
                 current_trial += 1
@@ -93,13 +96,22 @@ def main():
                 data.append(
                     {
                         "trial_number": current_trial,
-                        "block": block,
+                        "block": block+1,
                         "start_time": str(dt.timedelta(seconds = (start_time - start_of_experiment))),
                         "end_time": str(dt.timedelta(seconds = (end_time - start_of_experiment))),
                         **stimuli_characteristics,
                         **report
                     }
                 )
+            
+            # Break after end of block, unless it's the last block.
+            blocks_done += 1
+
+            if block + 1 == N_BLOCKS // 2:
+                long_break(N_BLOCKS, settings)
+            elif block + 1 < N_BLOCKS:
+                block_break(block + 1, N_BLOCKS, settings)
+
 
     finally:
         # Stop eyetracker (this should also save the data)
@@ -121,6 +133,10 @@ def main():
         )
 
         # Done!
+        if blocks_done == N_BLOCKS: 
+            finish(N_BLOCKS, settings)
+        else:
+            quick_finish(settings)
         core.quit()
 
 

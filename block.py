@@ -6,12 +6,64 @@ To run the 'null-cue gaze bias' experiment, see main.py.
 made by Anna van Harmelen, 2023
 """
 import random
+from trial import show_text
+from response import wait_for_key
+
 
 def create_block(n_trials):
     if n_trials % 6 != 0:
         raise Exception("Expected number of trials to be divisible by 6.")
 
-    trials = (n_trials // 6) * list(zip(2 * ['neutral', 'congruent', 'incongruent'], 3 * ['left', 'right']))
+    trials = (n_trials // 6) * list(
+        zip(2 * ["neutral", "congruent", "incongruent"], 3 * ["left", "right"])
+    )
     random.shuffle(trials)
 
     return trials
+
+
+def block_break(current_block, n_blocks, settings):
+    blocks_left = n_blocks - current_block
+
+    show_text(
+        f"You just finished block {current_block}, you {'only ' if blocks_left == 1 else ''}"
+        f"have {blocks_left} block{'s' if blocks_left != 1 else ''} left. "
+        "Take a break if you want to and press space when you're ready to continue.",
+        settings["window"],
+    )
+    settings["window"].flip()
+
+    wait_for_key(["space"], settings["keyboard"])
+
+
+def long_break(n_blocks, settings):
+    show_text(
+        f"You're halfway through! You have {n_blocks // 2} blocks left. "
+        "Now is the time to take a longer break. Maybe get up, stretch, walk around. "
+        "Press space whenever you're ready to continue again.",
+        settings["window"],
+    )
+    settings["window"].flip()
+
+    wait_for_key(["space"], settings["keyboard"])
+
+
+def finish(n_blocks, settings):
+    show_text(
+        f"Congratulations! You successfully finished all {n_blocks} blocks!"
+        "You're completely done now. Press space to exit the experiment.",
+        settings["window"],
+    )
+    settings["window"].flip()
+
+    wait_for_key(["space"], settings["keyboard"])
+
+
+def quick_finish(settings):
+    show_text(
+        f"You've exited the experiment. Press space to close this window.",
+        settings["window"],
+    )
+    settings["window"].flip()
+
+    wait_for_key(["space"], settings["keyboard"])

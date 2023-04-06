@@ -13,9 +13,9 @@ from set_up import set_up
 import pandas as pd
 import datetime as dt
 
-
-trials = zip(2 * ['neutral', 'congruent', 'incongruent'], 3 * ['left', 'right'])
-print(list(trials))
+current_block = 3
+blocks_left = 1
+print(f"You just finished block {current_block}, you{' only' if blocks_left == 1 else ''} have {blocks_left} block{'s' if blocks_left != 1 else ''} left.")
 
 # stop here
 import sys
