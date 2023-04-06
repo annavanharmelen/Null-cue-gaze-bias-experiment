@@ -3,7 +3,7 @@ This file contains the functions necessary for
 seting up the computer.
 To run the 'null-cue gaze bias' experiment, see main.py.
 
-made by Anna van Harmelen, 2023, using code by Rose Nasrawi
+made by Anna van Harmelen, 2023
 """
 
 from psychopy import visual
@@ -36,7 +36,7 @@ def set_up(testing: bool):
 
     window = visual.Window(
         color=('#7F7F7F'),
-        # monitor = 'testMonitor',
+        monitor = monitor,
         size=monitor["resolution"],
         units="pix",
         fullscr=True,

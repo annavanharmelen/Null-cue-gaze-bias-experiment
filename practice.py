@@ -44,7 +44,7 @@ def practice(settings):
             target_colour = None
 
             practice_bar = make_one_bar(
-                target_orientation, [0.5, 0.5, 0.5], "middle", settings
+                target_orientation, '#eaeaea', "middle", settings
             )
 
             report: dict = get_response(target_orientation, target_colour, settings, [practice_bar])
