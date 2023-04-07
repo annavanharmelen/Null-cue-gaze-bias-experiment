@@ -8,8 +8,8 @@ made by Anna van Harmelen, 2023
 
 from psychopy import visual
 
-ECCENTRICITY = 6
-BAR_SIZE = [0.4, 3] # width, height
+ECCENTRICITY = 8
+BAR_SIZE = [0.7, 5] # width, height
 CAPTURE_CUE_SIZE = [2, 2, 0.1] # width, height, linewidth
 
 def create_fixation_cross(settings, colour='#eaeaea'):
