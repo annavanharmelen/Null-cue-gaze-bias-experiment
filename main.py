@@ -38,7 +38,15 @@ def main():
     monitor, directory = get_monitor_and_dir(testing)
 
     # Get participant details and save in same file as before
-    old_participants = pd.read_csv(rf"{directory}\participantinfo.csv")
+    old_participants = pd.read_csv(
+        rf"{directory}\participantinfo.csv",
+        dtype={
+            "participant_number": int,
+            "session_number": int,
+            "age": int,
+            "trials_completed": str,
+        },
+    )
     new_participants = get_participant_details(old_participants, testing)
 
     # Initialise set-up
@@ -49,20 +57,20 @@ def main():
         eyelinker = Eyelinker(
             new_participants.participant_number.iloc[-1],
             new_participants.session_number.iloc[-1],
-            settings['window'],
-            settings['directory'],
+            settings["window"],
+            settings["directory"],
         )
         eyelinker.calibrate()
 
     # Practice until participant wants to stop
     practice(settings)
-    
+
     # Initialise some stuff
     start_of_experiment = time()
     data = []
     current_trial = 0
     finished_early = True
-    
+
     # Start recording eyetracker
     if not testing:
         eyelinker.start()
@@ -70,40 +78,49 @@ def main():
     # Start experiment
     try:
         for block in range(2 if testing else N_BLOCKS):
-
             # Pseudo-randomly create conditions and target locations (so they're weighted)
             block_info = create_block(6 if testing else TRIALS_PER_BLOCK)
 
             # Run trials per pseudo-randomly created info
             for condition, target_bar in block_info:
-
                 current_trial += 1
                 start_time = time()
 
-                stimuli_characteristics: dict = generate_stimuli_characteristics(condition, target_bar)
+                stimuli_characteristics: dict = generate_stimuli_characteristics(
+                    condition, target_bar
+                )
 
                 # Generate trial
-                report: dict = single_trial(**stimuli_characteristics, settings=settings, testing=testing, eyetracker=None if testing else eyelinker)
+                report: dict = single_trial(
+                    **stimuli_characteristics,
+                    settings=settings,
+                    testing=testing,
+                    eyetracker=None if testing else eyelinker,
+                )
                 end_time = time()
-              
+
                 # Save trial data
                 data.append(
                     {
                         "trial_number": current_trial,
                         "block": block + 1,
-                        "start_time": str(dt.timedelta(seconds = (start_time - start_of_experiment))),
-                        "end_time": str(dt.timedelta(seconds = (end_time - start_of_experiment))),
+                        "start_time": str(
+                            dt.timedelta(seconds=(start_time - start_of_experiment))
+                        ),
+                        "end_time": str(
+                            dt.timedelta(seconds=(end_time - start_of_experiment))
+                        ),
                         **stimuli_characteristics,
-                        **report
+                        **report,
                     }
                 )
-            
+
             # Break after end of block, unless it's the last block.
             if block + 1 == N_BLOCKS // 2:
                 long_break(N_BLOCKS, settings)
             elif block + 1 < N_BLOCKS:
                 block_break(block + 1, N_BLOCKS, settings)
-        
+
         finished_early = False
 
     finally:
@@ -126,13 +143,12 @@ def main():
         )
 
         # Done!
-        if finished_early: 
+        if finished_early:
             quick_finish(settings)
         else:
             finish(N_BLOCKS, settings)
 
         core.quit()
-
 
     # Thanks for meedoen
 
