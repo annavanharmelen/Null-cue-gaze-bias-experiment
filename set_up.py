@@ -11,13 +11,13 @@ from psychopy.hardware.keyboard import Keyboard
 from math import degrees, atan2, pi
 
 
-def set_up(testing: bool):
+def get_monitor_and_dir(testing: bool):
     if testing:
         # laptop
         monitor = {
             "resolution": (1920, 1080),  # in pixels
             "Hz": 60,  # screen refresh rate in Hz
-            "width": 33,  # in cm (KLOPT DIT?)
+            "width": 33,  # in cm
             "distance": 50,  # in cm
         }
 
@@ -27,13 +27,16 @@ def set_up(testing: bool):
         # lab
         monitor = {
             "resolution": (1920, 1080),  # in pixels
-            "Hz": 239,  # screen refresh rate in Hz (KLOPT DIT?)
-            "width": 38,  # in cm (KLOPT DIT?)
+            "Hz": 239,  # screen refresh rate in Hz
+            "width": 52.5,  # in cm
             "distance": 60,  # in cm
         }
 
-        directory = r"bloepediebloepbloep"
+        directory = r"C:\Users\Anna_vidi\Desktop\Anna's code - 06.04.2023\data"
+    
+    return monitor, directory
 
+def get_settings(monitor: dict, directory):
     window = visual.Window(
         color=('#7F7F7F'),
         monitor = monitor,
