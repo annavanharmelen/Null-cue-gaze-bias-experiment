@@ -67,7 +67,7 @@ def practice(settings):
 
             stimulus = generate_stimuli_characteristics(condition, target_bar)
 
-            report: dict = single_trial(**stimulus, settings=settings)
+            report: dict = single_trial(**stimulus, settings=settings, testing=True)
             
     except KeyboardInterrupt:
         show_text(
