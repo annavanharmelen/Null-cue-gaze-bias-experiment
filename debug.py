@@ -1,6 +1,6 @@
 """
 This script is used to test random aspects
-of the 'placeholder' experiment.
+of the 'null-cue gaze bias' experiment.
 
 made by Anna van Harmelen, 2023
 """

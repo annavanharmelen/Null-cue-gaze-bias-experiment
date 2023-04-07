@@ -27,27 +27,18 @@ class Eyelinker:
         """
         This also connects to the tracker
         """
-
         self.directory = directory
         self.window = window
         self.tracker = eyelinker.EyeLinker(
-            window=window, eye="BOTH", filename=f"rn6-{participant}-{session}.edf"
+            window=window, eye="BOTH", filename=f"{session}_{participant}.edf"
         )
+        self.tracker.init_tracker()
 
     def start(self):
-        os.chdir(self.directory)
-
-        self.tracker.open_edf()
-        self.tracker.init_tracker()
         self.tracker.start_recording()
 
     def calibrate(self):
-        self.tracker.stop_recording()
-
-        # calibwait.draw() - draws text on screen while calibrating the eye-tracker
-        self.window.flip()
-        event.waitKeys(keyList="r")
-        self.tracker.start_recording()
+        self.tracker.calibrate()
 
     def stop(self):
         os.chdir(self.directory)
