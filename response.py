@@ -12,6 +12,7 @@ from math import cos, sin, degrees
 from stimuli import create_fixation_cross
 from time import time
 
+RESPONSE_DIAL_SIZE = 2.5
 
 def turn_handle(pos, dial_step_size):
 
@@ -65,31 +66,31 @@ def make_circle(rad, settings, pos=(0, 0), handle=False):
         win=settings["window"],
         radius=settings["deg2pix"](rad),
         edges=settings["deg2pix"](1),
-        lineWidth=settings["deg2pix"](0.05),
+        lineWidth=settings["deg2pix"](0.1),
         fillColor=None,
         pos=(settings["deg2pix"](pos[0]), settings["deg2pix"](pos[1])),
     )
 
     if handle:
-        circle.lineColor = "black"
+        circle.lineColor = "#eaeaea"
     else:
-        circle.lineColor = [-0.5, -0.5, -0.5]
+        circle.lineColor = "#d4d4d4"
 
     return circle
 
 
 def make_dial(settings):
-    dial_circle = make_circle(1.5, settings)
+    dial_circle = make_circle(RESPONSE_DIAL_SIZE, settings)
     top_dial = make_circle(
-        0.15,
+        RESPONSE_DIAL_SIZE/10,
         settings,
-        pos=(0, 1.5),
+        pos=(0, RESPONSE_DIAL_SIZE),
         handle=True,
     )
     bottom_dial = make_circle(
-        0.15,
+        RESPONSE_DIAL_SIZE/10,
         settings,
-        pos=(0, -1.5),
+        pos=(0, -RESPONSE_DIAL_SIZE),
         handle=True,
     )
 
