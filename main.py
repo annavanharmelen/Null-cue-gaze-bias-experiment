@@ -10,7 +10,7 @@ from datetime import datetime
 from psychopy import core
 import pandas as pd
 from participantinfo import get_participant_details
-from set_up import set_up
+from set_up import get_monitor_and_dir, get_settings
 from eyetracker import Eyelinker
 from argparse import ArgumentParser
 from trial import single_trial, generate_stimuli_characteristics
@@ -19,8 +19,8 @@ from practice import practice
 import datetime as dt
 from block import create_block, block_break, long_break, finish, quick_finish
 
-N_BLOCKS = 4
-TRIALS_PER_BLOCK = 6
+N_BLOCKS = 16
+TRIALS_PER_BLOCK = 48
 
 
 def main():
@@ -31,25 +31,18 @@ def main():
      - subject data in one .csv (for all sessions combined)
     """
 
-    # Read command-line arguments
-    parser = ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "-t",
-        "--test",
-        action="store_true",
-        help="Just do a test run, i.e. no eyetracking and we'll save the data somewhere else",
-    )
-    args = parser.parse_args()
-    # testing = args.test
+    # Set whether this is a test run or not
     testing = True
 
-    # Initialise set-up
-    settings = set_up(testing)
-    start_of_experiment = time()
+    # Get monitor and directory information
+    monitor, directory = get_monitor_and_dir(testing)
 
     # Get participant details and save in same file as before
-    old_participants = pd.read_csv(rf"{settings['directory']}\participantinfo.csv")
+    old_participants = pd.read_csv(rf"{directory}\participantinfo.csv")
     new_participants = get_participant_details(old_participants, testing)
+
+    # Initialise set-up
+    settings = get_settings(monitor, directory)
 
     # Connect to eyetracker and calibrate it
     if not testing:
@@ -61,24 +54,25 @@ def main():
         )
         eyelinker.calibrate()
 
-    # Practice (also checks performance)
+    # Practice until participant wants to stop
     practice(settings)
     
-    # Start eyetracker
+    # Initialise some stuff
+    start_of_experiment = time()
+    data = []
+    current_trial = 0
+    finished_early = True
+    
+    # Start recording eyetracker
     if not testing:
         eyelinker.start()
 
-    # Initialise some stuff
-    data = []
-    current_trial = 0
-    blocks_done = 0
-
     # Start experiment
     try:
-        for block in range(N_BLOCKS):
+        for block in range(2 if testing else N_BLOCKS):
 
             # Pseudo-randomly create conditions and target locations (so they're weighted)
-            block_info = create_block(TRIALS_PER_BLOCK)
+            block_info = create_block(6 if testing else TRIALS_PER_BLOCK)
 
             # Run trials per pseudo-randomly created info
             for condition, target_bar in block_info:
@@ -89,14 +83,14 @@ def main():
                 stimuli_characteristics: dict = generate_stimuli_characteristics(condition, target_bar)
 
                 # Generate trial
-                report: dict = single_trial(**stimuli_characteristics, settings=settings)
+                report: dict = single_trial(**stimuli_characteristics, settings=settings, testing=testing, eyetracker=None if testing else eyelinker)
                 end_time = time()
               
                 # Save trial data
                 data.append(
                     {
                         "trial_number": current_trial,
-                        "block": block+1,
+                        "block": block + 1,
                         "start_time": str(dt.timedelta(seconds = (start_time - start_of_experiment))),
                         "end_time": str(dt.timedelta(seconds = (end_time - start_of_experiment))),
                         **stimuli_characteristics,
@@ -105,13 +99,12 @@ def main():
                 )
             
             # Break after end of block, unless it's the last block.
-            blocks_done += 1
-
             if block + 1 == N_BLOCKS // 2:
                 long_break(N_BLOCKS, settings)
             elif block + 1 < N_BLOCKS:
                 block_break(block + 1, N_BLOCKS, settings)
-
+        
+        finished_early = False
 
     finally:
         # Stop eyetracker (this should also save the data)
@@ -125,7 +118,7 @@ def main():
         )
 
         # Register how many trials this participant has completed
-        new_participants.loc[new_participants.index[-1], "trials_completed"] = len(data)
+        new_participants.loc[new_participants.index[-1], "trials_completed"] = str(len(data))
 
         # Save participant data to existing .csv file
         new_participants.to_csv(
@@ -133,10 +126,11 @@ def main():
         )
 
         # Done!
-        if blocks_done == N_BLOCKS: 
-            finish(N_BLOCKS, settings)
-        else:
+        if finished_early: 
             quick_finish(settings)
+        else:
+            finish(N_BLOCKS, settings)
+
         core.quit()
 
 
