@@ -130,7 +130,7 @@ def main():
 
         # Save all collected trial data to a new .csv
         pd.DataFrame(data).to_csv(
-            rf"{settings['directory']}\data_session_{new_participants.session_number.iloc[-1]}.csv",
+            rf"{settings['directory']}\data_session_{new_participants.session_number.iloc[-1]}{'_test' if testing else ''}.csv",
             index=False,
         )
 
