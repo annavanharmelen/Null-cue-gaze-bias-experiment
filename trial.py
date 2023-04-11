@@ -148,7 +148,10 @@ def single_trial(
     settings["window"].flip()
     sleep(0.25)
 
-    return response
+    return {
+        'condition_code': get_trigger("stimuli_onset", trial_condition, target_bar),
+        **response
+    }
 
 
 def get_trigger(frame, condition, target_position):
