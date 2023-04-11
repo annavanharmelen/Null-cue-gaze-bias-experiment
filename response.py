@@ -157,8 +157,8 @@ def get_response(target_orientation, target_colour, settings, additional_objects
     response_time = time() - response_started
 
     return {
-        "idle_reaction_time": idle_reaction_time,
-        "response_time": response_time,
+        "idle_reaction_time_in_ms": round(idle_reaction_time * 1000, 2),
+        "response_time_in_ms": round(response_time * 1000, 2),
         "key_pressed": key,
         **evaluate_response(
             get_report_orientation(key, turns, settings["dial_step_size"]),
