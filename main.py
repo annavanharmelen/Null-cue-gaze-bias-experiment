@@ -32,7 +32,7 @@ def main():
     """
 
     # Set whether this is a test run or not
-    testing = True
+    testing = False
 
     # Get monitor and directory information
     monitor, directory = get_monitor_and_dir(testing)
@@ -63,7 +63,7 @@ def main():
         eyelinker.calibrate()
 
     # Practice until participant wants to stop
-    practice(settings)
+    #practice(settings)
 
     # Initialise some stuff
     start_of_experiment = time()

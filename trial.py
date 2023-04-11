@@ -90,7 +90,7 @@ def single_trial(
 ):
     screens = [
         (0, lambda: 0 / 0, None),  # initial one to make life easier
-        (0.1, lambda: create_fixation_cross(settings), None),
+        (0.5, lambda: create_fixation_cross(settings), None),
         (
             0.25,
             lambda: create_stimuli_frame(
@@ -104,7 +104,7 @@ def single_trial(
             lambda: create_capture_cue_frame(capture_colour, settings),
             "capture_cue_onset",
         ),
-        (1.75, lambda: create_fixation_cross(settings), None),
+        (1.25, lambda: create_fixation_cross(settings), None),
         (
             None,
             lambda: create_fixation_cross(settings, target_colour),
@@ -139,14 +139,14 @@ def single_trial(
     # Show performance
     create_fixation_cross(settings)
     show_text(
-        f"{response['performance']}", settings["window"], (0, settings["deg2pix"](0.5))
+        f"{response['performance']}", settings["window"], (0, settings["deg2pix"](0.7))
     )
 
     if not testing:
         trigger = get_trigger("feedback_onset", trial_condition, target_bar)
         eyetracker.tracker.send_message(f"trig{trigger}")
     settings["window"].flip()
-    sleep(0.8)
+    sleep(0.25)
 
     return response
 
@@ -173,7 +173,7 @@ def get_trigger(frame, condition, target_position):
 
 def show_text(input, window, pos=(0, 0), colour="#ffffff"):
     textstim = visual.TextStim(
-        win=window, font="Courier New", text=input, color=colour, pos=pos, height=24
+        win=window, font="Courier New", text=input, color=colour, pos=pos, height=22
     )
 
     textstim.draw()

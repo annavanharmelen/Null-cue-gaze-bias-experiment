@@ -8,14 +8,14 @@ made by Anna van Harmelen, 2023
 
 from psychopy import visual
 
-ECCENTRICITY = 8
-BAR_SIZE = [0.7, 5] # width, height
+ECCENTRICITY = 6
+BAR_SIZE = [0.6, 4] # width, height
 CAPTURE_CUE_SIZE = [2, 2, 0.1] # width, height, linewidth
 
 def create_fixation_cross(settings, colour='#eaeaea'):
 
     # Determine size of fixation cross
-    fixation_size = settings["deg2pix"](0.2)
+    fixation_size = settings["deg2pix"](0.22)
 
     # Make fixation cross
     fixation_cross = visual.ShapeStim(
@@ -27,7 +27,7 @@ def create_fixation_cross(settings, colour='#eaeaea'):
             (-fixation_size, 0),
             (fixation_size, 0),
         ),
-        lineWidth=settings["deg2pix"](0.05),
+        lineWidth=settings["deg2pix"](0.06),
         lineColor=colour,
         closeShape=False,
         units="pix",

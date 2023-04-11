@@ -28,11 +28,11 @@ def get_monitor_and_dir(testing: bool):
         monitor = {
             "resolution": (1920, 1080),  # in pixels
             "Hz": 239,  # screen refresh rate in Hz
-            "width": 52.5,  # in cm
-            "distance": 60,  # in cm
+            "width": 53,  # in cm
+            "distance": 70,  # in cm
         }
 
-        directory = r"C:\Users\Anna_vidi\Desktop\Anna's code - 06.04.2023\data"
+        directory = r"C:\Users\Anna_vidi\Desktop\Null-cue gaze bias - 11.04.2023\data"
     
     return monitor, directory
 
