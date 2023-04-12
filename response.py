@@ -173,4 +173,6 @@ def get_response(target_orientation, target_colour, settings, testing, eyetracke
 def wait_for_key(key_list, keyboard):
     keyboard: Keyboard = keyboard
     keyboard.clearEvents()
-    event.waitKeys(keyList=key_list)
+    keys = event.waitKeys(keyList=key_list)
+    
+    return keys

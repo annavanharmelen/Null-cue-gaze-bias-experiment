@@ -22,7 +22,7 @@ def create_block(n_trials):
     return trials
 
 
-def block_break(current_block, n_blocks, settings):
+def block_break(current_block, n_blocks, settings, eyetracker):
     blocks_left = n_blocks - current_block
 
     show_text(
@@ -33,10 +33,16 @@ def block_break(current_block, n_blocks, settings):
     )
     settings["window"].flip()
 
-    wait_for_key(["space"], settings["keyboard"])
+    keys = wait_for_key(["space", "c"], settings["keyboard"])
+    if 'c' in keys and eyetracker:
+        eyetracker.calibrate()
+        eyetracker.start()
+        return True
+    
+    return False
 
 
-def long_break(n_blocks, settings):
+def long_break(n_blocks, settings, eyetracker):
     show_text(
         f"You're halfway through! You have {n_blocks // 2} blocks left. "
         "Now is the time to take a longer break. Maybe get up, stretch, walk around. "
@@ -45,7 +51,12 @@ def long_break(n_blocks, settings):
     )
     settings["window"].flip()
 
-    wait_for_key(["space"], settings["keyboard"])
+    keys = wait_for_key(["space", "c"], settings["keyboard"])
+    if 'c' in keys and eyetracker:
+        eyetracker.calibrate()
+        return True
+    
+    return False
 
 
 def finish(n_blocks, settings):

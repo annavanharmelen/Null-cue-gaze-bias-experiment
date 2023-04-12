@@ -116,10 +116,15 @@ def main():
                 )
 
             # Break after end of block, unless it's the last block.
+            calibrated = True
             if block + 1 == N_BLOCKS // 2:
-                long_break(N_BLOCKS, settings)
+                while calibrated:
+                    calibrated = long_break(N_BLOCKS, settings, eyetracker=None if testing else eyelinker)
+                if not testing:
+                    eyelinker.start()
             elif block + 1 < N_BLOCKS:
-                block_break(block + 1, N_BLOCKS, settings)
+                while calibrated:
+                    calibrated = block_break(block + 1, N_BLOCKS, settings, eyetracker=None if testing else eyelinker)
 
         finished_early = False
 
