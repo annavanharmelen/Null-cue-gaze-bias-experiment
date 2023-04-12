@@ -1,0 +1,16 @@
+trial_number,block,start_time,end_time,stimuli_colours,capture_colour,trial_condition,left_orientation,right_orientation,target_bar,target_colour,target_orientation,condition_code,idle_reaction_time_in_ms,response_time_in_ms,key_pressed,report_orientation,performance,absolute_difference,correct_key,signed_difference
+1,1,0:00:00.137392,0:00:06.166268,"['#99ceff', '#ff99ac']",#ff99ac,congruent,62,-58,right,#ff99ac,-58,2,2282.59,448.88,z,-31,70,27,True,-27
+2,1,0:00:06.166268,0:00:10.278105,"['#f5e2a3', '#a8f0d1']",#f5e2a3,congruent,22,29,left,#f5e2a3,22,1,405.23,433.5,m,30,91,8,True,-8
+3,1,0:00:10.278105,0:00:14.054151,"['#f5e2a3', '#a8f0d1']",#a8f0d1,congruent,8,18,right,#a8f0d1,18,2,372.99,131.94,m,9,90,9,True,9
+4,1,0:00:14.054151,0:00:17.896165,"['#ff99ac', '#f5e2a3']",#f5e2a3,incongruent,72,-20,left,#ff99ac,72,3,245.02,324.88,z,-22,4,86,False,94
+5,1,0:00:17.896165,0:00:22.263442,"['#f5e2a3', '#a8f0d1']",#99ceff,neutral,72,-18,right,#a8f0d1,-18,6,339.26,755.9,m,53,21,71,False,-71
+6,1,0:00:22.263442,0:00:26.852432,"['#99ceff', '#a8f0d1']",#99ceff,congruent,57,23,left,#99ceff,57,1,834.77,482.11,z,-34,1,89,False,91
+7,1,0:00:26.852432,0:00:31.107613,"['#ff99ac', '#a8f0d1']",#f5e2a3,neutral,-45,-23,left,#ff99ac,-45,5,308.51,673.07,m,47,2,88,False,-92
+8,1,0:00:31.107613,0:00:34.981867,"['#a8f0d1', '#ff99ac']",#a8f0d1,incongruent,18,15,right,#ff99ac,15,4,310.0,291.65,m,20,94,5,True,-5
+9,1,0:00:34.981867,0:00:38.757912,"['#ff99ac', '#99ceff']",#99ceff,congruent,78,-28,right,#99ceff,-28,2,230.14,274.29,z,-18,89,10,True,-10
+10,1,0:00:38.757912,0:00:43.479830,"['#ff99ac', '#a8f0d1']",#a8f0d1,incongruent,75,30,left,#ff99ac,75,3,450.86,997.46,m,70,94,5,True,5
+11,1,0:00:43.479830,0:00:47.911091,"['#99ceff', '#ff99ac']",#ff99ac,congruent,76,47,right,#ff99ac,47,2,578.83,580.82,m,40,92,7,True,7
+12,1,0:00:47.911091,0:00:52.227776,"['#f5e2a3', '#ff99ac']",#f5e2a3,incongruent,19,-34,right,#ff99ac,-34,4,517.33,529.23,m,37,21,71,False,-71
+13,1,0:00:52.227776,0:00:56.964573,"['#ff99ac', '#a8f0d1']",#ff99ac,incongruent,36,-78,right,#a8f0d1,-78,4,678.03,786.16,z,-55,74,23,True,-23
+14,1,0:00:56.964573,0:01:01.287211,"['#ff99ac', '#a8f0d1']",#f5e2a3,neutral,-16,-60,left,#ff99ac,-16,5,692.42,356.62,z,-24,91,8,True,8
+15,1,0:01:01.287211,0:01:05.588520,"['#99ceff', '#f5e2a3']",#f5e2a3,incongruent,-45,-84,left,#99ceff,-45,3,675.55,354.14,z,-24,77,21,True,-21
