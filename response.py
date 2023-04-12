@@ -15,8 +15,8 @@ from eyetracker import get_trigger
 
 RESPONSE_DIAL_SIZE = 2
 
-def turn_handle(pos, dial_step_size):
 
+def turn_handle(pos, dial_step_size):
     x, y = pos
     pos = (
         x * cos(dial_step_size) + y * sin(dial_step_size),
@@ -28,7 +28,6 @@ def turn_handle(pos, dial_step_size):
 
 
 def get_report_orientation(key, turns, dial_step_size):
-
     report_orientation = degrees(turns * dial_step_size)
 
     if key == "z":
@@ -49,8 +48,9 @@ def evaluate_response(report_orientation, target_orientation, key):
 
     performance = round(100 - abs_difference / 90 * 100)
 
-    correct_key = (target_orientation > 0 and key == "m") or \
-        (target_orientation < 0 and key == "z")
+    correct_key = (target_orientation > 0 and key == "m") or (
+        target_orientation < 0 and key == "z"
+    )
 
     return {
         "report_orientation": report_orientation,
@@ -62,7 +62,6 @@ def evaluate_response(report_orientation, target_orientation, key):
 
 
 def make_circle(rad, settings, pos=(0, 0), handle=False):
-
     circle = visual.Circle(
         win=settings["window"],
         radius=settings["deg2pix"](rad),
@@ -73,10 +72,10 @@ def make_circle(rad, settings, pos=(0, 0), handle=False):
 
     if handle:
         circle.lineColor = "#eaeaea"
-        circle.fillColor='#7F7F7F'
+        circle.fillColor = settings["window"].color
     else:
         circle.lineColor = "#d4d4d4"
-        circle.fillColor=None
+        circle.fillColor = None
 
     return circle
 
@@ -84,13 +83,13 @@ def make_circle(rad, settings, pos=(0, 0), handle=False):
 def make_dial(settings):
     dial_circle = make_circle(RESPONSE_DIAL_SIZE, settings)
     top_dial = make_circle(
-        RESPONSE_DIAL_SIZE/15,
+        RESPONSE_DIAL_SIZE / 15,
         settings,
         pos=(0, RESPONSE_DIAL_SIZE),
         handle=True,
     )
     bottom_dial = make_circle(
-        RESPONSE_DIAL_SIZE/15,
+        RESPONSE_DIAL_SIZE / 15,
         settings,
         pos=(0, -RESPONSE_DIAL_SIZE),
         handle=True,
@@ -99,8 +98,16 @@ def make_dial(settings):
     return dial_circle, top_dial, bottom_dial
 
 
-def get_response(target_orientation, target_colour, settings, testing, eyetracker, trial_condition, target_bar, additional_objects=[]):
-
+def get_response(
+    target_orientation,
+    target_colour,
+    settings,
+    testing,
+    eyetracker,
+    trial_condition,
+    target_bar,
+    additional_objects=[],
+):
     keyboard: Keyboard = settings["keyboard"]
     window = settings["window"]
 
@@ -134,13 +141,12 @@ def get_response(target_orientation, target_colour, settings, testing, eyetracke
     # - a second passed
 
     dial_circle, top_dial, bottom_dial = make_dial(settings)
-    
+
     if not testing and eyetracker:
         trigger = get_trigger("response_onset", trial_condition, target_bar)
         eyetracker.tracker.send_message(f"trig{trigger}")
 
     while not keyboard.getKeys(keyList=[key]) and turns <= settings["monitor"]["Hz"]:
-
         top_dial.pos = turn_handle(top_dial.pos, rad)
         bottom_dial.pos = turn_handle(bottom_dial.pos, rad)
 
@@ -174,5 +180,5 @@ def wait_for_key(key_list, keyboard):
     keyboard: Keyboard = keyboard
     keyboard.clearEvents()
     keys = event.waitKeys(keyList=key_list)
-    
+
     return keys
