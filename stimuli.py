@@ -70,17 +70,32 @@ def create_stimuli_frame(left_orientation, right_orientation, colours, settings)
 
 
 def create_capture_cue_frame(colour, settings):
-
-    capture_cue = visual.Rect(
-        win=settings["window"],
+    
+    capture_cue = visual.ShapeStim(
+        win=settings['window'],
         units="pix",
-        width=settings["deg2pix"](CAPTURE_CUE_SIZE[0]),
-        height=settings["deg2pix"](CAPTURE_CUE_SIZE[1]),
-        pos=(0, 0),
-        lineColor=colour,
+        vertices=(
+            (-CAPTURE_CUE_SIZE[0] // 2, CAPTURE_CUE_SIZE[1] // 2),
+            (CAPTURE_CUE_SIZE[0] // 2, CAPTURE_CUE_SIZE[1] // 2),
+            (CAPTURE_CUE_SIZE[0] // 2, -CAPTURE_CUE_SIZE[1] // 2),
+            (-CAPTURE_CUE_SIZE[0] // 2, -CAPTURE_CUE_SIZE[1] // 2),
+        ),
         lineWidth=settings["deg2pix"](CAPTURE_CUE_SIZE[2]),
-        fillColor=None,
+        lineColor="#4472c4",
+        pos=(0,0),
+        closeShape=False,
     )
+
+    # capture_cue = visual.Rect(
+    #     win=settings["window"],
+    #     units="pix",
+    #     width=settings["deg2pix"](CAPTURE_CUE_SIZE[0]),
+    #     height=settings["deg2pix"](CAPTURE_CUE_SIZE[1]),
+    #     pos=(0, 0),
+    #     lineColor=colour,
+    #     lineWidth=settings["deg2pix"](CAPTURE_CUE_SIZE[2]),
+    #     fillColor=None,
+    # )
 
     capture_cue.draw()
     create_fixation_cross(settings)
