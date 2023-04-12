@@ -1,0 +1,3 @@
+trial_number,block,start_time,end_time,stimuli_colours,capture_colour,trial_condition,left_orientation,right_orientation,target_bar,target_colour,target_orientation,condition_code,idle_reaction_time_in_ms,response_time_in_ms,key_pressed,report_orientation,performance,absolute_difference,correct_key,signed_difference
+1,1,0:00:00.111104,0:00:04.048352,"['#f5e2a3', '#ff99ac']",#f5e2a3,incongruent,-43,-54,right,#ff99ac,-54,4,312.98,352.66,z,-24,67,30,True,-30
+2,1,0:00:04.048352,0:00:08.116048,"['#99ceff', '#ff99ac']",#ff99ac,incongruent,82,-83,left,#99ceff,82,3,553.04,243.54,m,16,27,66,True,66
