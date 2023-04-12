@@ -16,6 +16,7 @@ from stimuli import (
     create_capture_cue_frame,
     create_stimuli_frame,
 )
+from eyetracker import get_trigger
 import random
 
 # experiment flow:
@@ -105,11 +106,7 @@ def single_trial(
             "capture_cue_onset",
         ),
         (1.25, lambda: create_fixation_cross(settings), None),
-        (
-            None,
-            lambda: create_fixation_cross(settings, target_colour),
-            "probe_cue_onset",
-        ),
+        (None, lambda: create_fixation_cross(settings, target_colour), None),
     ]
 
     # !!! The timing you pass to do_while_showing is the timing for the previously drawn screen.
@@ -126,11 +123,15 @@ def single_trial(
         if not testing and frame:
             eyetracker.tracker.send_message("trigOFF")
 
+    # the for loop only draws the probe cue,  never shows it
+    # so we now show it here
     if not testing:
-        trigger = get_trigger("response_onset", trial_condition, target_bar)
+        trigger = get_trigger("probe_cue_onset", trial_condition, target_bar)
         eyetracker.tracker.send_message(f"trig{trigger}")
+    
+    settings["window"].flip()
 
-    response = get_response(target_orientation, target_colour, settings)
+    response = get_response(target_orientation, target_colour, settings, testing, eyetracker, trial_condition, target_bar)
 
     if not testing:
         trigger = get_trigger("response_offset", trial_condition, target_bar)
@@ -152,26 +153,6 @@ def single_trial(
         'condition_code': get_trigger("stimuli_onset", trial_condition, target_bar),
         **response
     }
-
-
-def get_trigger(frame, condition, target_position):
-    condition_marker = {
-        "congruent": 1,
-        "incongruent": 3,
-        "neutral": 5
-    }[condition]
-
-    if target_position == "right":
-        condition_marker += 1
-
-    return {
-        "stimuli_onset": "",
-        "capture_cue_onset": "1",
-        "probe_cue_onset": "2",
-        "response_onset": "3",
-        "response_offset": "4",
-        "feedback_onset": "5",
-    }[frame] + str(condition_marker)
 
 
 def show_text(input, window, pos=(0, 0), colour="#ffffff"):

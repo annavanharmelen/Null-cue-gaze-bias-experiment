@@ -22,7 +22,7 @@ import random
 # 2. Practice full trials
 
 
-def practice(settings):
+def practice(testing, settings):
 
     # Show explanation
     show_text(
@@ -47,7 +47,7 @@ def practice(settings):
                 target_orientation, '#eaeaea', "middle", settings
             )
 
-            report: dict = get_response(target_orientation, target_colour, settings, [practice_bar])
+            report: dict = get_response(target_orientation, target_colour, settings, testing, None, 1, target_bar, [practice_bar])
             
             create_fixation_cross(settings)
             show_text(f"{report['performance']}", settings["window"], (0, settings['deg2pix'](0.5)))

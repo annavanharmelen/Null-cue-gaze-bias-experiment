@@ -46,3 +46,22 @@ class Eyelinker:
         self.tracker.stop_recording()
         self.tracker.transfer_edf()
         self.tracker.close_edf()
+
+def get_trigger(frame, condition, target_position):
+    condition_marker = {
+        "congruent": 1,
+        "incongruent": 3,
+        "neutral": 5
+    }[condition]
+
+    if target_position == "right":
+        condition_marker += 1
+
+    return {
+        "stimuli_onset": "",
+        "capture_cue_onset": "1",
+        "probe_cue_onset": "2",
+        "response_onset": "3",
+        "response_offset": "4",
+        "feedback_onset": "5",
+    }[frame] + str(condition_marker)

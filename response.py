@@ -11,6 +11,7 @@ from psychopy.hardware.keyboard import Keyboard
 from math import cos, sin, degrees
 from stimuli import create_fixation_cross
 from time import time
+from eyetracker import get_trigger
 
 RESPONSE_DIAL_SIZE = 2
 
@@ -98,7 +99,7 @@ def make_dial(settings):
     return dial_circle, top_dial, bottom_dial
 
 
-def get_response(target_orientation, target_colour, settings, additional_objects=[]):
+def get_response(target_orientation, target_colour, settings, testing, eyetracker, trial_condition, target_bar, additional_objects=[]):
 
     keyboard: Keyboard = settings["keyboard"]
     window = settings["window"]
@@ -108,10 +109,7 @@ def get_response(target_orientation, target_colour, settings, additional_objects
 
     for item in additional_objects:
         item.draw()
-
-    create_fixation_cross(settings, target_colour)
-
-    window.flip()
+        window.flip()
 
     idle_reaction_time_start = time()
 
@@ -136,6 +134,10 @@ def get_response(target_orientation, target_colour, settings, additional_objects
     # - a second passed
 
     dial_circle, top_dial, bottom_dial = make_dial(settings)
+    
+    if not testing and eyetracker:
+        trigger = get_trigger("response_onset", trial_condition, target_bar)
+        eyetracker.tracker.send_message(f"trig{trigger}")
 
     while not keyboard.getKeys(keyList=[key]) and turns <= settings["monitor"]["Hz"]:
 
