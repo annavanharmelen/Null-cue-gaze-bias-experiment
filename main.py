@@ -116,6 +116,7 @@ def main():
                 )
 
             # Break after end of block, unless it's the last block.
+            # Experimenter can re-calibrate the eyetracker by pressing 'c' here.
             calibrated = True
             if block + 1 == N_BLOCKS // 2:
                 while calibrated:
