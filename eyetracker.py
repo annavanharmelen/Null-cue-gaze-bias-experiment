@@ -30,7 +30,7 @@ class Eyelinker:
         self.directory = directory
         self.window = window
         self.tracker = eyelinker.EyeLinker(
-            window=window, eye="BOTH", filename=f"{session}_{participant}.edf"
+            window=window, eye="RIGHT", filename=f"{session}_{participant}.edf"
         )
         self.tracker.init_tracker()
 
