@@ -13,30 +13,6 @@ import random
 import pandas as pd
 import datetime as dt
 
-CAPTURE_CUE_SIZE = [2, 2, 0.1] # width, height, linewidth
-
-window = visual.Window(
-    color=('#7F7F7F'),
-    size = [1920, 1080],
-    units="pix",
-    fullscr=False,
-)
-
-capture_cue = visual.ShapeStim(
-    win=window,
-    units="pix",
-    vertices=(
-        (-CAPTURE_CUE_SIZE[0] // 2, CAPTURE_CUE_SIZE[1] // 2),
-        (CAPTURE_CUE_SIZE[0] // 2, CAPTURE_CUE_SIZE[1] // 2),
-        (CAPTURE_CUE_SIZE[0] // 2, -CAPTURE_CUE_SIZE[1] // 2),
-        (-CAPTURE_CUE_SIZE[0] // 2, -CAPTURE_CUE_SIZE[1] // 2),
-    ),
-    #lineWidth=settings["deg2pix"](0.06),
-    fillColor="#4472c4",
-    closeShape=False,
-)
-
-time.sleep(1)
 
 # stop here
 import sys
