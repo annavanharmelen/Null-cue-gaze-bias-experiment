@@ -128,10 +128,18 @@ def single_trial(
     if not testing:
         trigger = get_trigger("probe_cue_onset", trial_condition, target_bar)
         eyetracker.tracker.send_message(f"trig{trigger}")
-    
+
     settings["window"].flip()
 
-    response = get_response(target_orientation, target_colour, settings, testing, eyetracker, trial_condition, target_bar)
+    response = get_response(
+        target_orientation,
+        target_colour,
+        settings,
+        testing,
+        eyetracker,
+        trial_condition,
+        target_bar,
+    )
 
     if not testing:
         trigger = get_trigger("response_offset", trial_condition, target_bar)
@@ -150,8 +158,8 @@ def single_trial(
     sleep(0.25)
 
     return {
-        'condition_code': get_trigger("stimuli_onset", trial_condition, target_bar),
-        **response
+        "condition_code": get_trigger("stimuli_onset", trial_condition, target_bar),
+        **response,
     }
 
 

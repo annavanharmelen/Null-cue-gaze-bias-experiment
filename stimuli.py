@@ -9,11 +9,11 @@ made by Anna van Harmelen, 2023
 from psychopy import visual
 
 ECCENTRICITY = 6
-BAR_SIZE = [0.6, 4] # width, height
-CAPTURE_CUE_SIZE = [2, 2, 0.1] # width, height, linewidth
+BAR_SIZE = [0.6, 4]  # width, height
+CAPTURE_CUE_SIZE = [2, 2, 0.1]  # width, height, linewidth
 
-def create_fixation_cross(settings, colour='#eaeaea'):
 
+def create_fixation_cross(settings, colour="#eaeaea"):
     # Determine size of fixation cross
     fixation_size = settings["deg2pix"](0.22)
 
@@ -37,7 +37,6 @@ def create_fixation_cross(settings, colour='#eaeaea'):
 
 
 def make_one_bar(orientation, colour, position, settings):
-
     # Check input
     if position == "left":
         pos = (-settings["deg2pix"](ECCENTRICITY), 0)
@@ -63,16 +62,14 @@ def make_one_bar(orientation, colour, position, settings):
 
 
 def create_stimuli_frame(left_orientation, right_orientation, colours, settings):
-
     create_fixation_cross(settings)
     make_one_bar(left_orientation, colours[0], "left", settings).draw()
     make_one_bar(right_orientation, colours[1], "right", settings).draw()
 
 
 def create_capture_cue_frame(colour, settings):
-    
     capture_cue = visual.ShapeStim(
-        win=settings['window'],
+        win=settings["window"],
         units="pix",
         vertices=(
             (-CAPTURE_CUE_SIZE[0] // 2, CAPTURE_CUE_SIZE[1] // 2),
@@ -82,7 +79,7 @@ def create_capture_cue_frame(colour, settings):
         ),
         lineWidth=settings["deg2pix"](CAPTURE_CUE_SIZE[2]),
         lineColor="#4472c4",
-        pos=(0,0),
+        pos=(0, 0),
         closeShape=False,
     )
 
