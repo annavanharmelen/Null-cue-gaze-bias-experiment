@@ -6,7 +6,6 @@ see README.md for instructions if needed
 """
 
 # Import necessary stuff
-from datetime import datetime
 from psychopy import core
 import pandas as pd
 from participantinfo import get_participant_details
