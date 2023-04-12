@@ -89,6 +89,9 @@ def single_trial(
     testing,
     eyetracker=None,
 ):
+    # Initial fixation cross to eliminate jitter caused by for loop
+    create_fixation_cross(settings)
+
     screens = [
         (0, lambda: 0 / 0, None),  # initial one to make life easier
         (0.5, lambda: create_fixation_cross(settings), None),
@@ -109,7 +112,7 @@ def single_trial(
         (None, lambda: create_fixation_cross(settings, target_colour), None),
     ]
 
-    # !!! The timing you pass to do_while_showing is the timing for the previously drawn screen.
+    # !!! The timing you pass to do_while_showing is the timing for the previously drawn screen. !!!
 
     for index, (duration, _, frame) in enumerate(screens[:-1]):
         # Send trigger if not testing
@@ -123,8 +126,8 @@ def single_trial(
         if not testing and frame:
             eyetracker.tracker.send_message("trigOFF")
 
-    # the for loop only draws the probe cue,  never shows it
-    # so we now show it here
+    # The for loop only draws the probe cue, never shows it
+    # So show it here
     if not testing:
         trigger = get_trigger("probe_cue_onset", trial_condition, target_bar)
         eyetracker.tracker.send_message(f"trig{trigger}")
