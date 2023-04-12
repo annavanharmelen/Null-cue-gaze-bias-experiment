@@ -52,7 +52,7 @@ def practice(testing, settings):
             create_fixation_cross(settings)
             show_text(f"{report['performance']}", settings["window"], (0, settings['deg2pix'](0.5)))
             settings["window"].flip()
-            sleep(0.8)
+            sleep(0.5)
 
     except KeyboardInterrupt:
         show_text('You decided to stop practising the response dial. Press space to start practicing full trials.', settings["window"])
