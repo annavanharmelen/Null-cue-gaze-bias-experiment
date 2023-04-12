@@ -33,12 +33,15 @@ def block_break(current_block, n_blocks, settings, eyetracker):
     )
     settings["window"].flip()
 
-    keys = wait_for_key(["space", "c"], settings["keyboard"])
-    if 'c' in keys and eyetracker:
-        eyetracker.calibrate()
-        eyetracker.start()
-        return True
-    
+    if eyetracker:
+        keys = wait_for_key(["space", "c"], settings["keyboard"])
+        if "c" in keys:
+            eyetracker.calibrate()
+            eyetracker.start()
+            return True
+    else:
+        wait_for_key(["space"], settings["keyboard"])
+
     return False
 
 
@@ -51,11 +54,14 @@ def long_break(n_blocks, settings, eyetracker):
     )
     settings["window"].flip()
 
-    keys = wait_for_key(["space", "c"], settings["keyboard"])
-    if 'c' in keys and eyetracker:
-        eyetracker.calibrate()
-        return True
-    
+    if eyetracker:
+        keys = wait_for_key(["space", "c"], settings["keyboard"])
+        if "c" in keys:
+            eyetracker.calibrate()
+            return True
+    else:
+        wait_for_key(["space"], settings["keyboard"])
+
     return False
 
 
