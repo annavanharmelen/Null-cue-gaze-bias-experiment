@@ -23,11 +23,10 @@ import random
 
 
 def practice(testing, settings):
-
     # Show explanation
     show_text(
-        f"Welcome to the practice trials. You will practice each part until you press 'q'. \
-            \nPress the space bar to start the practice session.",
+        f"Welcome to the practice trials. You will practice each part until you press Q. \
+            \nPress SPACE to start the practice session.",
         settings["window"],
     )
     settings["window"].flip()
@@ -36,42 +35,59 @@ def practice(testing, settings):
     # Practice dial until user chooses to stop
     try:
         while True:
-
-            target_bar = random.choice(['left', 'right'])
-            condition = 'neutral'
+            target_bar = random.choice(["left", "right"])
+            condition = "neutral"
             target = generate_stimuli_characteristics(condition, target_bar)
-            target_orientation = target['target_orientation']
+            target_orientation = target["target_orientation"]
             target_colour = None
 
             practice_bar = make_one_bar(
-                target_orientation, '#eaeaea', "middle", settings
+                target_orientation, "#eaeaea", "middle", settings
             )
 
-            report: dict = get_response(target_orientation, target_colour, settings, testing, None, 1, target_bar, [practice_bar])
-            
+            report: dict = get_response(
+                target_orientation,
+                target_colour,
+                settings,
+                testing,
+                None,
+                1,
+                target_bar,
+                [practice_bar],
+            )
+
             create_fixation_cross(settings)
-            show_text(f"{report['performance']}", settings["window"], (0, settings['deg2pix'](0.5)))
+            show_text(
+                f"{report['performance']}",
+                settings["window"],
+                (0, settings["deg2pix"](0.5)),
+            )
             settings["window"].flip()
             sleep(0.5)
 
     except KeyboardInterrupt:
-        show_text('You decided to stop practising the response dial. Press space to start practicing full trials.', settings["window"])
+        show_text(
+            "You decided to stop practising the response dial."
+            "Press SPACE to start practicing full trials."
+            "\nRemember to press Q to stop practising these trials once you feel comfortable starting the real experiment.",
+            settings["window"],
+        )
         settings["window"].flip()
         wait_for_key(["space"], settings["keyboard"])
 
     # Practice trials until user chooses to stop
     try:
         while True:
-            target_bar = random.choice(['left', 'right'])
-            condition = random.choice(['congruent', 'incongruent', 'neutral'])
+            target_bar = random.choice(["left", "right"])
+            condition = random.choice(["congruent", "incongruent", "neutral"])
 
             stimulus = generate_stimuli_characteristics(condition, target_bar)
 
             report: dict = single_trial(**stimulus, settings=settings, testing=True)
-            
+
     except KeyboardInterrupt:
         show_text(
-            f"You decided to stop practicing full trials.\nPress the space bar to start the experiment.",
+            f"You decided to stop practicing the trials.\nPress SPACE to start the experiment.",
             settings["window"],
         )
         settings["window"].flip()
