@@ -47,12 +47,9 @@ class Eyelinker:
         self.tracker.transfer_edf()
         self.tracker.close_edf()
 
+
 def get_trigger(frame, condition, target_position):
-    condition_marker = {
-        "congruent": 1,
-        "incongruent": 3,
-        "neutral": 5
-    }[condition]
+    condition_marker = {"congruent": 1, "incongruent": 3, "neutral": 5}[condition]
 
     if target_position == "right":
         condition_marker += 1

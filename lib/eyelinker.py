@@ -297,7 +297,7 @@ class ConnectedEyeLinker:
 
         if text is None:
             text = (
-               "Notify experimenter to calibrate the equipment."
+               "Notify the experimenter to calibrate the equipment."
             )
 
         psychopy.visual.TextStim(
