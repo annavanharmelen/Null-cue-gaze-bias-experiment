@@ -11,22 +11,27 @@ import pandas as pd
 
 
 def get_participant_details(existing_participants: pd.DataFrame, testing):
+    # Generate random & unique participant number
+    participant = random.randint(10, 99)
+    while participant in existing_participants.participant_number:
+        participant = random.randint(10, 99)
     
+    print(f"Participant number: {participant}")
+
     if not testing:
         # Get participant age
         age = int(input("Participant age: "))
     else:
         age = 00
-    
-    # Generate random & unique participant number
-    participant = random.randint(10,99)
-    while participant in existing_participants.participant_number:
-        participant = random.randint(10,99)
 
     # Insert session number
     session = max(existing_participants.session_number) + 1
 
-    new_participant = pd.DataFrame({'age': [age], 'participant_number': [participant], 'session_number': [session]})
-    all_participants = pd.concat([existing_participants, new_participant], ignore_index=True)
+    new_participant = pd.DataFrame(
+        {"age": [age], "participant_number": [participant], "session_number": [session]}
+    )
+    all_participants = pd.concat(
+        [existing_participants, new_participant], ignore_index=True
+    )
 
     return all_participants
