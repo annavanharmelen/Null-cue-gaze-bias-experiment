@@ -28,7 +28,8 @@ def block_break(current_block, n_blocks, settings, eyetracker):
     show_text(
         f"You just finished block {current_block}, you {'only ' if blocks_left == 1 else ''}"
         f"have {blocks_left} block{'s' if blocks_left != 1 else ''} left. "
-        "Take a break if you want to and press space when you're ready to continue.",
+        "Take a break if you want to, but try not to move your head during this break."
+        "\nPress SPACE when you're ready to continue.",
         settings["window"],
     )
     settings["window"].flip()
@@ -48,8 +49,8 @@ def block_break(current_block, n_blocks, settings, eyetracker):
 def long_break(n_blocks, settings, eyetracker):
     show_text(
         f"You're halfway through! You have {n_blocks // 2} blocks left. "
-        "Now is the time to take a longer break. Maybe get up, stretch, walk around. "
-        "Press space whenever you're ready to continue again.",
+        "Now is the time to take a longer break. Maybe get up, stretch, walk around."
+        "\nPress SPACE whenever you're ready to continue again.",
         settings["window"],
     )
     settings["window"].flip()
@@ -68,7 +69,7 @@ def long_break(n_blocks, settings, eyetracker):
 def finish(n_blocks, settings):
     show_text(
         f"Congratulations! You successfully finished all {n_blocks} blocks!"
-        "You're completely done now. Press space to exit the experiment.",
+        "You're completely done now. Press SPACE to exit the experiment.",
         settings["window"],
     )
     settings["window"].flip()
@@ -78,7 +79,7 @@ def finish(n_blocks, settings):
 
 def quick_finish(settings):
     show_text(
-        f"You've exited the experiment. Press space to close this window.",
+        f"You've exited the experiment. Press SPACE to close this window.",
         settings["window"],
     )
     settings["window"].flip()
