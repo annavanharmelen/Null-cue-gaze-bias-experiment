@@ -32,7 +32,7 @@ def get_monitor_and_dir(testing: bool):
             "distance": 70,  # in cm
         }
 
-        directory = r"C:\Users\Anna_vidi\Desktop\Null-cue gaze bias - 11.04.2023\data"
+        directory = r"C:\Users\Anna_vidi\Desktop\Null-cue gaze bias experiment\data"
     
     return monitor, directory
 
