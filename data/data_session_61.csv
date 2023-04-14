@@ -1,0 +1,18 @@
+trial_number,block,start_time,end_time,stimuli_colours,capture_colour,trial_condition,left_orientation,right_orientation,target_bar,target_colour,target_orientation,condition_code,idle_reaction_time_in_ms,response_time_in_ms,key_pressed,report_orientation,performance,absolute_difference,correct_key,signed_difference
+1,1,0:00:00.163355,0:00:11.566431,"['#ff99ac', '#99ceff']",#ff99ac,congruent,-26,-83,left,#ff99ac,-26,1,7835.08,288.48,m,21,48,47,False,-47
+2,1,0:00:11.566431,0:00:16.525671,"['#ff99ac', '#a8f0d1']",#ff99ac,congruent,-47,-36,left,#ff99ac,-47,1,1056.1,627.6,m,46,3,87,False,-93
+3,1,0:00:16.525671,0:00:20.680550,"['#a8f0d1', '#f5e2a3']",#99ceff,neutral,-66,-8,right,#f5e2a3,-8,6,347.56,531.28,m,39,48,47,False,-47
+4,1,0:00:20.680550,0:00:24.638806,"['#ff99ac', '#99ceff']",#f5e2a3,neutral,68,-55,left,#ff99ac,68,5,252.23,427.5,m,31,59,37,True,37
+5,1,0:00:24.638806,0:00:28.721192,"['#a8f0d1', '#99ceff']",#a8f0d1,incongruent,76,72,right,#99ceff,72,4,370.9,434.45,m,32,56,40,True,40
+6,1,0:00:28.721192,0:00:32.558298,"['#ff99ac', '#99ceff']",#a8f0d1,neutral,-66,7,left,#ff99ac,-66,5,236.34,323.23,m,23,1,89,False,-89
+7,1,0:00:32.558298,0:00:36.746444,"['#99ceff', '#a8f0d1']",#f5e2a3,neutral,-34,-26,left,#99ceff,-34,5,347.07,563.55,m,41,17,75,False,-75
+8,1,0:00:36.746444,0:00:40.917210,"['#a8f0d1', '#ff99ac']",#ff99ac,incongruent,54,64,left,#a8f0d1,54,3,322.74,571.0,m,41,86,13,True,13
+9,1,0:00:40.917210,0:00:45.377449,"['#a8f0d1', '#ff99ac']",#a8f0d1,congruent,9,-16,left,#a8f0d1,9,1,571.49,609.23,m,45,60,36,True,-36
+10,1,0:00:45.377449,0:00:49.165398,"['#ff99ac', '#99ceff']",#99ceff,incongruent,19,-43,left,#ff99ac,19,3,190.17,322.24,m,23,96,4,True,-4
+11,1,0:00:49.165398,0:00:53.227924,"['#a8f0d1', '#ff99ac']",#a8f0d1,congruent,74,-39,left,#a8f0d1,74,1,294.93,492.55,m,36,58,38,True,38
+12,1,0:00:53.227924,0:00:57.037721,"['#ff99ac', '#99ceff']",#ff99ac,congruent,39,-56,left,#ff99ac,39,1,218.47,313.3,m,23,82,16,True,16
+13,1,0:00:57.037721,0:01:01.179193,"['#99ceff', '#ff99ac']",#ff99ac,incongruent,28,71,left,#99ceff,28,3,164.35,699.6,m,52,73,24,True,-24
+14,1,0:01:01.179193,0:01:05.253636,"['#99ceff', '#f5e2a3']",#99ceff,congruent,61,-16,left,#99ceff,61,1,299.9,497.51,m,37,73,24,True,24
+15,1,0:01:05.253636,0:01:09.164227,"['#f5e2a3', '#99ceff']",#f5e2a3,incongruent,16,43,right,#99ceff,43,4,423.03,212.01,m,15,69,28,True,28
+16,1,0:01:09.164227,0:01:12.916924,"['#f5e2a3', '#ff99ac']",#ff99ac,congruent,79,-51,right,#ff99ac,-51,2,219.96,256.7,z,-18,63,33,True,-33
+17,1,0:01:12.916924,0:01:16.932776,"['#f5e2a3', '#ff99ac']",#99ceff,neutral,-33,-38,right,#ff99ac,-38,6,191.16,548.65,m,40,13,78,False,-78
