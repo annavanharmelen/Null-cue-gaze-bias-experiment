@@ -123,9 +123,6 @@ def single_trial(
         # Draw the next screen while showing the current one
         do_while_showing(duration, screens[index + 1][1], settings["window"])
 
-        if not testing and frame:
-            eyetracker.tracker.send_message("trigOFF")
-
     # The for loop only draws the probe cue, never shows it
     # So show it here
     if not testing:
