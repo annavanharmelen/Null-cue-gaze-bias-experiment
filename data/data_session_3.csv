@@ -1,7 +1,0 @@
-trial_number,block,start_time,end_time,stimuli_colours,capture_colour,trial_condition,left_orientation,right_orientation,target_bar,target_colour,target_orientation,idle_reaction_time,response_time,key_pressed,report_orientation,performance,absolute_difference,correct_key,signed_difference
-1,1,0:00:00.110613,0:00:09.144191,"['#a8f0d1', '#f5e2a3']",#99ceff,neutral,-26,21,left,#a8f0d1,-26,4.852100849151611,0.2569403648376465,z,-18,91,8,True,-8
-2,1,0:00:09.144191,0:00:18.774981,"['#99ceff', '#ff99ac']",#ff99ac,incongruent,84,5,left,#99ceff,84,5.387806415557861,0.3204312324523926,z,-23,19,73,False,107
-3,1,0:00:18.774981,0:00:28.601205,"['#f5e2a3', '#ff99ac']",#99ceff,neutral,38,-69,right,#ff99ac,-69,5.436416387557983,0.46576595306396484,m,34,14,77,False,-103
-4,1,0:00:28.601205,0:00:34.267280,"['#ff99ac', '#a8f0d1']",#a8f0d1,congruent,-9,56,right,#a8f0d1,56,1.2911489009857178,0.4518771171569824,z,-33,1,89,False,89
-5,1,0:00:34.267280,0:00:43.532005,"['#ff99ac', '#99ceff']",#99ceff,incongruent,28,54,left,#ff99ac,28,5.0004119873046875,0.3402719497680664,m,25,97,3,True,3
-6,1,0:00:43.532005,0:00:49.707000,"['#f5e2a3', '#a8f0d1']",#a8f0d1,incongruent,-67,44,left,#f5e2a3,-67,1.8814165592193604,0.3715214729309082,m,27,4,86,False,-94

@@ -1,2 +1,0 @@
-trial_number,block,start_time,end_time,stimuli_colours,capture_colour,trial_condition,left_orientation,right_orientation,target_bar,target_colour,target_orientation,condition_code,idle_reaction_time_in_ms,response_time_in_ms,key_pressed,report_orientation,performance,absolute_difference,correct_key,signed_difference
-1,1,0:00:00.109120,0:00:04.064720,"['#f5e2a3', '#ff99ac']",#99ceff,neutral,40,-59,left,#f5e2a3,40,5,364.56,320.42,z,-22,31,62,False,62
