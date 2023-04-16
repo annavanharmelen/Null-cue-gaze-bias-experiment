@@ -39,7 +39,6 @@ def get_monitor_and_dir(testing: bool):
 def get_settings(monitor: dict, directory):
     window = visual.Window(
         color=('#7F7F7F'),
-        monitor = monitor,
         size=monitor["resolution"],
         units="pix",
         fullscr=True,
