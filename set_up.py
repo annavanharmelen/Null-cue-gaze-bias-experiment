@@ -21,7 +21,7 @@ def get_monitor_and_dir(testing: bool):
             "distance": 50,  # in cm
         }
 
-        directory = r"C:\Users\annav\Documents\Jottacloud\Neuroscience\Year 2\Master's thesis\Code\Null-cue gaze bias\data"
+        directory = r"C:\Users\annav\Documents\Jottacloud\Neuroscience\Year 2\Master's thesis\Data\test"
 
     else:
         # lab
