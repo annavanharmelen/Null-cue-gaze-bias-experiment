@@ -146,8 +146,6 @@ def get_response(
         trigger = get_trigger("response_onset", trial_condition, target_bar)
         eyetracker.tracker.send_message(f"trig{trigger}")
 
-    one_second_start = time()
-
     while not keyboard.getKeys(keyList=[key]) and turns < settings["monitor"]["Hz"]:
         top_dial.pos = turn_handle(top_dial.pos, rad)
         bottom_dial.pos = turn_handle(bottom_dial.pos, rad)
@@ -164,14 +162,11 @@ def get_response(
 
         window.flip()
 
-    one_second_end = time() - one_second_start
-
     response_time = time() - response_started
 
     return {
         "idle_reaction_time_in_ms": round(idle_reaction_time * 1000, 2),
         "response_time_in_ms": round(response_time * 1000, 2),
-        "while_loop_time": round(one_second_end * 1000, 2),
         "key_pressed": key,
         "turns_made": turns,
         **evaluate_response(
