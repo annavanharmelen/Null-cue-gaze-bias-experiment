@@ -25,5 +25,3 @@ To make sure the experiment runs correctly, open the set_up.py file to enter the
 
 ## Running
 The experiment runs in its entirety (including some explanation, practice trials and breaks) if you run `python main.py`.
-
-https://uva.fra1.qualtrics.com/jfe/form/SV_1ZEdFSWvZOOLU10
