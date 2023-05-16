@@ -196,8 +196,8 @@ class ConnectedEyeLinker:
         # pl.setCalibrationSounds(
         #     settings['target_sound'], settings['good_sound'], settings['error_sound'])
 
-        if self.eye in ('LEFT', 'RIGHT'):
-            self.send_command('active_eye = %s' % self.eye)
+        # if self.eye in ('LEFT', 'RIGHT'):
+        #     self.send_command('active_eye = %s' % self.eye)
 
         self.send_command(
             'automatic_calibration_pacing = %i' % settings['automatic_calibration_pacing'])
