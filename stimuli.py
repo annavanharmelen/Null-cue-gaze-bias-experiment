@@ -10,8 +10,7 @@ from psychopy import visual
 
 ECCENTRICITY = 6
 BAR_SIZE = [0.6, 4]  # width, height
-#CAPTURE_CUE_SIZE = [2, 2, 0.2]  # width, height, linewidth
-CAPTURE_CUE_SIZE = 1.5 # diamter of circle
+CAPTURE_CUE_SIZE = 1.5 # diameter of circle
 
 def create_fixation_cross(settings, colour="#eaeaea"):
     # Determine size of fixation cross
@@ -66,29 +65,6 @@ def create_stimuli_frame(left_orientation, right_orientation, colours, settings)
     make_one_bar(left_orientation, colours[0], "left", settings).draw()
     make_one_bar(right_orientation, colours[1], "right", settings).draw()
 
-
-# def create_capture_cue_frame(colour, settings):
-#     capture_cue_outer = visual.Rect(
-#         win=settings["window"],
-#         units="pix",
-#         width=settings["deg2pix"](CAPTURE_CUE_SIZE[0] + CAPTURE_CUE_SIZE[2]),
-#         height=settings["deg2pix"](CAPTURE_CUE_SIZE[1] + CAPTURE_CUE_SIZE[2]),
-#         pos=(0, 0),
-#         fillColor=colour,
-#     )
-
-#     capture_cue_inner = visual.Rect(
-#         win=settings["window"],
-#         units="pix",
-#         width=settings["deg2pix"](CAPTURE_CUE_SIZE[0] - CAPTURE_CUE_SIZE[2]),
-#         height=settings["deg2pix"](CAPTURE_CUE_SIZE[1] - CAPTURE_CUE_SIZE[2]),
-#         pos=(0, 0),
-#         fillColor=settings["window"].color,
-#     )
-
-#     capture_cue_outer.draw()
-#     capture_cue_inner.draw()
-#     create_fixation_cross(settings)
 
 def create_capture_cue_frame(colour, settings):
     capture_cue = visual.Circle(
