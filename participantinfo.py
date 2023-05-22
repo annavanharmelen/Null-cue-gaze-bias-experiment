@@ -13,7 +13,7 @@ import pandas as pd
 def get_participant_details(existing_participants: pd.DataFrame, testing):
     # Generate random & unique participant number
     participant = random.randint(10, 99)
-    while participant in existing_participants.participant_number:
+    while participant in existing_participants.participant_number.tolist():
         participant = random.randint(10, 99)
     
     print(f"Participant number: {participant}")
