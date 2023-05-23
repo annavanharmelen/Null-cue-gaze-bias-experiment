@@ -10,7 +10,7 @@ from psychopy import visual
 
 ECCENTRICITY = 6
 BAR_SIZE = [0.6, 4]  # width, height
-CAPTURE_CUE_SIZE = 1.5 # diameter of circle
+CAPTURE_CUE_SIZE = 1 # diameter of circle
 
 def create_fixation_cross(settings, colour="#eaeaea"):
     # Determine size of fixation cross
