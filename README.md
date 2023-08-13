@@ -23,5 +23,7 @@ pip install --index-url=https://pypi.sr-support.com sr-research-pylink
 ## Configuration
 To make sure the experiment runs correctly, open the set_up.py file to enter the correct specifications of your monitor and set-up on lines 17-35.
 
+Two versions of this experiment exist. The most recent version runs when working on the main branch, the older version is available on the branch "Square-capture-cue".
+
 ## Running
 The experiment runs in its entirety (including some explanation, practice trials and breaks) if you run `python main.py`.
