@@ -13,6 +13,18 @@ import random
 import pandas as pd
 import datetime as dt
 
+monitor = {
+        "resolution": (1920, 1080),  # in pixels
+        "Hz": 239,  # screen refresh rate in Hz
+        "width": 53,  # in cm
+        "distance": 70,  # in cm
+    }
+
+degrees_per_pixel = degrees(atan2(0.5 * monitor["width"], monitor["distance"])) / (
+    0.5 * monitor["resolution"][0]
+)
+
+print(degrees_per_pixel)
 
 # stop here
 import sys
