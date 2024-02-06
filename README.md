@@ -2,7 +2,7 @@
 
 # ***[work in progress]***
 
-A temporal visuo-motor working memory task, designed to measure gaze bias during a non-informative retro cue, programmed in Python.
+A temporal visuo-motor working memory task, designed to measure gaze bias during an uninformative retro cue, programmed in Python.
 
 ## Author
 Made by Anna van Harmelen in 2023, based on code by Rose Nasrawi, see: [TemporalAction-main](https://github.com/rosenasrawi/TemporalAction).
